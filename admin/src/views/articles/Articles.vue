@@ -4,6 +4,8 @@
       <el-table-column prop="_id" label="ID"></el-table-column>
       <el-table-column prop="categoryId.name" label="文章分类"></el-table-column>
       <el-table-column prop="title" label="文章标题"></el-table-column>
+      <el-table-column prop="createTime" label="创建时间"></el-table-column>
+      <el-table-column prop="updateTime" label="上次修改时间"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template v-slot="scope">
           <el-button type="primary" icon="el-icon-edit" size="small" @click="edit(scope.row)">编辑</el-button>

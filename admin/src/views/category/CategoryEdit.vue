@@ -28,15 +28,40 @@ export default {
   },
   methods: {
     async save() {
-      this.id
-        ? await this.$http.put(`/categories/${this.id}`, this.category)
-        : await this.$http.post("/categories", this.category);
-      this.$router.push("/categories");
-      this.$message({
-        type: "success",
-        message: "保存成功",
-        duration: 1000
-      });
+      let res;
+      if (this.id) {
+        res = await this.$http.put(`/categories/${this.id}`, this.category);
+        if (res.data.state === "error") {
+          this.$message({
+            type: "error",
+            message: "该分类已存在,请重新命名",
+            duration: 1000
+          });
+        } else {
+          this.$message({
+            type: "success",
+            message: "保存成功",
+            duration: 1000
+          });
+          this.$router.push("/categories");
+        }
+      } else {
+        res = await this.$http.post("/categories", this.category);
+        if (res.data.state === "error") {
+          this.$message({
+            type: "error",
+            message: "该分类已存在,请重新命名",
+            duration: 1000
+          });
+        } else {
+          this.$message({
+            type: "success",
+            message: "创建成功",
+            duration: 1000
+          });
+          this.$router.push("/categories");
+        }
+      }
     },
     async fetch() {
       const res = await this.$http.get(`/categories/${this.id}`);

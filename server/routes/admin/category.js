@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const categoryModel = require('../db/models/category');
+const categoryModel = require('../../db/models/category');
 
 // 获取分类列表
 router.get('/', async (req, res) => {
@@ -10,8 +10,14 @@ router.get('/', async (req, res) => {
 
 // 新建分类
 router.post('/', async (req, res) => {
-  const item = await categoryModel.create(req.body);
-  res.send(item)
+  const body = {};
+  body.name = req.body.name;
+  if (await categoryModel.findOne(body)) {
+    res.send({ state: 'error' })
+  } else {
+    const item = await categoryModel.create(req.body);
+    res.send(item)
+  }
 })
 
 // 分类详情查询
@@ -22,8 +28,15 @@ router.get('/:id', async (req, res) => {
 
 // 分类详情修改
 router.put('/:id', async (req, res) => {
-  const item = await categoryModel.findByIdAndUpdate(req.params.id, req.body);
-  res.send(item)
+  const body = {};
+  body.name = req.body.name;
+  if (await categoryModel.findOne(body)) {
+    res.send({ state: 'error' })
+  } else {
+    const item = await categoryModel.findByIdAndUpdate(req.params.id, req.body);
+    res.send(item)
+  }
+
 })
 
 // 分类删除

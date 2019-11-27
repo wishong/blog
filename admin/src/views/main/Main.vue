@@ -1,7 +1,7 @@
 <template>
   <el-container style="height: 100vh">
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-      <el-menu router>
+      <el-menu router :default-active="$route.path">
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-user"></i>个人中心
@@ -15,7 +15,7 @@
             <i class="el-icon-menu"></i>分类管理
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/categories" ref="tets">分类列表</el-menu-item>
+            <el-menu-item index="/categories">分类列表</el-menu-item>
             <el-menu-item index="/categories/create">新建分类</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
@@ -25,7 +25,7 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="/articles">文章列表</el-menu-item>
-            <el-menu-item index="/articles/create">发表文章</el-menu-item>
+            <el-menu-item index="/articles/create">新建文章</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>
@@ -43,7 +43,7 @@
         <span>wish</span>
       </el-header>
 
-      <el-main>
+      <el-main class="main">
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -52,14 +52,7 @@
 
 <script>
 export default {
-  name: "Main",
-  mounted() {
-    console.log(this.$refs.tets.index);
-    
-  },
-  updated() {
-    console.log(this.$route.path);
-  }
+  name: "Main"
 };
 </script>
 

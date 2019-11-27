@@ -16,7 +16,7 @@
         <el-input v-model="article.title" placeholder="请输入文章标题" maxlength="30" show-word-limit></el-input>
       </el-form-item>
       <el-form-item label="文章内容">
-        <el-input v-model="article.content" placeholder="请输入文章内容" type="textarea" :rows="15"></el-input>
+        <vue-editor v-model="article.content" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
@@ -26,12 +26,15 @@
 </template>
 
 <script>
+import { VueEditor } from "vue2-editor";
+
 export default {
   name: "ArticlesEdit",
   data() {
     return {
       article: {},
-      parentCategories: []
+      parentCategories: [],
+      loading: {}
     };
   },
   props: {
@@ -48,9 +51,11 @@ export default {
       this.parentCategories = res.data;
     },
     async save() {
-      this.id
-        ? await this.$http.put(`/articles/${this.id}`, this.article)
-        : await this.$http.post("/articles", this.article);
+      if (this.id) {
+        await this.$http.put(`/articles/${this.id}`, this.article);
+      } else {
+        await this.$http.post("/articles", this.article);
+      }
       this.$router.push("/articles");
       this.$message({
         type: "success",
@@ -67,6 +72,9 @@ export default {
     title() {
       return this.id ? "编辑文章" : "新建文章";
     }
+  },
+  components: {
+    VueEditor
   }
 };
 </script>

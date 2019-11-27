@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const acticleModel = require('../db/models/article');
+const acticleModel = require('../../db/models/article');
 
 // 获取文章列表
 router.get('/', async (req, res) => {
