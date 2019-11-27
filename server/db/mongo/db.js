@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/blog', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/blog', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false
+});
 
 const db = mongoose.connection;
 db.on('open', () => {

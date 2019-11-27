@@ -5,6 +5,7 @@ const Main = () => import('../views/main/Main.vue');
 const Category = () => import('../views/category/Category.vue');
 const CategoryEdit = () => import('../views/category/CategoryEdit.vue');
 const Articles = () => import('../views/articles/Articles.vue');
+const ArticlesEdit = () => import('../views/articles/ArticlesEdit.vue');
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,8 @@ const routes = [
       { path: 'categories/create', component: CategoryEdit },
       { path: 'categories/edit/:id', component: CategoryEdit, props: true },
       { path: 'articles', component: Articles },
+      { path: 'articles/create', component: ArticlesEdit },
+      { path: 'articles/edit/:id', component: ArticlesEdit, props: true },
     ]
   },
 ]
