@@ -7,7 +7,7 @@
             <i class="el-icon-user"></i>个人中心
           </template>
           <el-menu-item-group>
-            <el-menu-item index="1-1">我的</el-menu-item>
+            <el-menu-item index="/admin">管理员</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="2">

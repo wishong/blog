@@ -1,1 +1,10 @@
-GET http://localhost:3000/admin/api/articles
+GET http://localhost:3000/admin/api/admins
+
+###
+POSt http://localhost:3000/admin/api/admins
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}

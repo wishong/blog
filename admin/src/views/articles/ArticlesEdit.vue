@@ -1,23 +1,38 @@
 <template>
   <div>
-    <h2>{{ title }}</h2>
+    <h3>{{ title }}</h3>
     <el-form label-width="120px" @submit.native.prevent="save">
-      <el-form-item label="文章分类">
-        <el-select v-model="article.categoryId">
-          <el-option
-            v-for="item in parentCategories"
-            :key="item._id"
-            :label="item.name"
-            :value="item._id"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="文章标题">
-        <el-input v-model="article.title" placeholder="请输入文章标题" maxlength="30" show-word-limit></el-input>
-      </el-form-item>
-      <el-form-item label="文章内容">
-        <vue-editor v-model="article.content" />
-      </el-form-item>
+      <el-tabs type="card">
+        <el-tab-pane label="文章信息">
+          <el-form-item label="文章分类">
+            <el-select v-model="article.categoryId">
+              <el-option
+                v-for="item in parentCategories"
+                :key="item._id"
+                :label="item.name"
+                :value="item._id"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="文章标题">
+            <el-input v-model="article.title" placeholder="请输入文章标题" maxlength="30" show-word-limit></el-input>
+          </el-form-item>
+          <el-form-item label="文章封面">
+            <el-upload
+              class="avatar-uploader"
+              :action="$http.defaults.baseURL + '/uploads/article' "
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+            >
+              <img v-if="article.coverImg" :src="article.coverImg" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+        </el-tab-pane>
+        <el-tab-pane label="文章内容">
+          <mavon-editor v-model="article.content" class="editor" @imgAdd="imgAdd" ref="md" />
+        </el-tab-pane>
+      </el-tabs>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
       </el-form-item>
@@ -26,8 +41,6 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
-
 export default {
   name: "ArticlesEdit",
   data() {
@@ -66,18 +79,50 @@ export default {
     async fetch() {
       const res = await this.$http.get(`/articles/${this.id}`);
       this.article = res.data;
+    },
+    handleAvatarSuccess(res) {
+      this.$set(this.article, "coverImg", res.url);
+    },
+    async imgAdd(pos, $file) {
+      const formdata = new FormData();
+      formdata.append("file", $file);
+      const res = await this.$http.post("/uploads/article", formdata);
+      this.$refs.md.$img2Url(pos, res.data.url);
     }
   },
   computed: {
     title() {
       return this.id ? "编辑文章" : "新建文章";
     }
-  },
-  components: {
-    VueEditor
   }
 };
 </script>
 
 <style scoped>
+.editor {
+  min-height: 440px;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
 </style>

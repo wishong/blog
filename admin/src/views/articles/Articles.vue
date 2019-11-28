@@ -1,9 +1,15 @@
 <template>
   <div>
+    <h3>文章列表</h3>
     <el-table :data="items">
       <el-table-column prop="_id" label="ID"></el-table-column>
       <el-table-column prop="categoryId.name" label="文章分类"></el-table-column>
       <el-table-column prop="title" label="文章标题"></el-table-column>
+      <el-table-column prop="icon" label="文章封面">
+        <template v-slot="scope">
+          <img :src="scope.row.coverImg" style="height:5rem;width:5rem" />
+        </template>
+      </el-table-column>
       <el-table-column prop="createTime" label="创建时间"></el-table-column>
       <el-table-column prop="updateTime" label="上次修改时间"></el-table-column>
       <el-table-column fixed="right" label="操作">
@@ -42,7 +48,6 @@ export default {
         type: "warning"
       })
         .then(async () => {
-          console.log(row._id);
           await this.$http.delete(`/articles/delete/${row._id}`);
           this.$message({
             type: "success",
