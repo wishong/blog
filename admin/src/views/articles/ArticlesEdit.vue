@@ -58,7 +58,6 @@ export default {
     this.id && this.fetch();
   },
   methods: {
-    // 获取文章的分类列表
     async categories() {
       const res = await this.$http.get("/categories");
       this.parentCategories = res.data;
@@ -82,6 +81,8 @@ export default {
     },
     handleAvatarSuccess(res) {
       this.$set(this.article, "coverImg", res.url);
+      console.log(res);
+      
     },
     async imgAdd(pos, $file) {
       const formdata = new FormData();
