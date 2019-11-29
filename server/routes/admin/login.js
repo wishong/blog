@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
   // 返回 token
   const jwt = require('jsonwebtoken');
   const token = jwt.sign({ id: item._id }, 'h6n9g0y2d6x4b4y2s3j');
-  res.send({ token })
+  res.send({ token, username })
 })
 
 module.exports = router;

@@ -34,7 +34,7 @@ export default {
       this.$router.push("/");
       this.$message({
         type: "success",
-        message: "登陆成功"
+        message: `欢迎您，${res.data.username}`
       });
     }
   }
