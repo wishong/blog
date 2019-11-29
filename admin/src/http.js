@@ -8,8 +8,8 @@ const http = axios.create({
 
 // 请求拦截器
 http.interceptors.request.use(config => {
-  if (localStorage.token) {
-    config.headers.Authorization = 'Beaer ' + localStorage.getItem('token');
+  if (sessionStorage.token) {
+    config.headers.Authorization = 'Beaer ' + sessionStorage.getItem('token');
   }
   return config;
 }, err => {
