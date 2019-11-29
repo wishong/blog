@@ -33,6 +33,7 @@ router.delete('/delete/:id', async (req, res) => {
     state: 'success '
   })
 })
+
 module.exports = router;
 
 

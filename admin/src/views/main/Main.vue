@@ -7,7 +7,8 @@
             <i class="el-icon-user"></i>个人中心
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/admin">管理员</el-menu-item>
+            <el-menu-item index="/profile">我的</el-menu-item>
+            <el-menu-item index="/profile/changePwd">修改密码</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="2">
@@ -26,6 +27,15 @@
           <el-menu-item-group>
             <el-menu-item index="/articles">文章列表</el-menu-item>
             <el-menu-item index="/articles/create">新建文章</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+        <el-submenu index="4">
+          <template slot="title">
+            <i class="el-icon-setting"></i>系统设置
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="/admin">管理员列表</el-menu-item>
+            <el-menu-item index="/admin/create">新建管理员</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>

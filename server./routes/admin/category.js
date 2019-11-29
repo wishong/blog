@@ -18,10 +18,10 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const { name } = req.body;
   if (typeof (name) === 'undefined') {
-    res.send({ state: 'none' })
+    res.status(422).send({ message: '请填写分类名称' })
   }
   else if (await categoryModel.findOne({ name })) {
-    res.send({ state: 'error' })
+    res.status(422).send({ message: '该分类已存在,请重新命名' })
   } else {
     const item = await categoryModel.create(req.body);
     res.send(item)
@@ -32,10 +32,10 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   const { name } = req.body;
   if (typeof (name) === 'undefined' || name === '') {
-    res.send({ state: 'none' })
+    res.status(422).send({ message: '请填写分类名称' })
   }
   else if (await categoryModel.findOne({ name })) {
-    res.send({ state: 'error' })
+    res.status(422).send({ message: '该分类已存在,请重新命名' })
   } else {
     const item = await categoryModel.findByIdAndUpdate(req.params.id, req.body);
     res.send(item)
@@ -47,7 +47,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/delete/:id', async (req, res) => {
   await categoryModel.findByIdAndDelete(req.params.id);
   res.send({
-    state: 'success '
+    state: 'success'
   })
 })
 

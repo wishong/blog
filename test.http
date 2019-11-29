@@ -5,6 +5,6 @@ POSt http://localhost:3000/admin/api/admins
 Content-Type: application/json
 
 {
-  "username": "admin",
+  "username": "admin1",
   "password": "admin"
 }

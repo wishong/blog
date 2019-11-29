@@ -20,7 +20,8 @@
           <el-form-item label="文章封面">
             <el-upload
               class="avatar-uploader"
-              :action="$http.defaults.baseURL + '/uploads/article' "
+              :action="uploadURL"
+              :headers="getAuthHeaders()"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
             >
@@ -81,8 +82,6 @@ export default {
     },
     handleAvatarSuccess(res) {
       this.$set(this.article, "coverImg", res.url);
-      console.log(res);
-      
     },
     async imgAdd(pos, $file) {
       const formdata = new FormData();

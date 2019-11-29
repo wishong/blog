@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <el-card header="请先登录" class="login-card">
+    <el-card header="登录" class="login-card">
       <el-form @submit.native.prevent="login">
         <el-form-item label="用户名">
           <el-input v-model="user.username"></el-input>
@@ -26,8 +26,14 @@ export default {
   },
   methods: {
     async login() {
-      const res = await this.$http.post("/admins/login", this.user);
+      const res = await this.$http.post("http://localhost:3000/admin/login", this.user);
       console.log(res.data);
+      localStorage.setItem("token", res.data.token);
+      this.$router.push("/");
+      this.$message({
+        type: "success",
+        message: "登陆成功"
+      });
     }
   }
 };

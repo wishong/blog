@@ -10,8 +10,8 @@
           <img :src="scope.row.coverImg" style="height:5rem;width:5rem" />
         </template>
       </el-table-column>
-      <el-table-column prop="createTime" label="创建时间"></el-table-column>
-      <el-table-column prop="updateTime" label="上次修改时间"></el-table-column>
+      <el-table-column prop="createTime" label="创建时间" sortable></el-table-column>
+      <el-table-column prop="updateTime" label="上次修改时间" sortable></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template v-slot="scope">
           <el-button type="primary" icon="el-icon-edit" size="small" @click="edit(scope.row)">编辑</el-button>
@@ -63,6 +63,9 @@ export default {
             duration: 1000
           });
         });
+    },
+    filterTag(value, row) {
+      return row.categoryId.name === value;
     }
   }
 };
