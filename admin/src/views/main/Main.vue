@@ -8,7 +8,7 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="/profile">我的</el-menu-item>
-            <el-menu-item index="/profile/changePwd">修改密码</el-menu-item>
+            <el-menu-item :index="`/profile/changePwd/${username}`">修改密码</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="2">
@@ -42,15 +42,16 @@
     </el-aside>
     <el-container>
       <el-header style="text-align: right; font-size: 12px">
-        <el-dropdown>
-          <i class="el-icon-setting" style="margin-right: 15px"></i>
+        <el-dropdown @command="handleCommand" style="margin-right: 8px">
+          <span class="el-dropdown-link">
+            {{ username }}
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item command="profile">我的</el-dropdown-item>
+            <el-dropdown-item command="exit">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>wish</span>
       </el-header>
 
       <el-main class="main">
@@ -62,7 +63,31 @@
 
 <script>
 export default {
-  name: "Main"
+  name: "Main",
+  methods: {
+    handleCommand(command) {
+      switch (command) {
+        case "profile":
+          this.$router.push("/profile");
+          break;
+        case "exit":
+          this.$confirm("是否退出当前账号")
+            .then(() => {
+              this.$router.push("/login");
+              sessionStorage.clear();
+            })
+            .catch(() => {});
+          break;
+        default:
+          break;
+      }
+    }
+  },
+  computed: {
+    username() {
+      return JSON.parse(sessionStorage.username);
+    }
+  }
 };
 </script>
 
@@ -71,5 +96,10 @@ export default {
   background-color: #b3c0d1;
   color: #333;
   line-height: 60px;
+}
+.username {
+  font-size: 15px;
+  line-height: 15px;
+  margin-right: 10px;
 }
 </style>

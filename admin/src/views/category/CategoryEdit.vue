@@ -1,8 +1,8 @@
 <template>
   <div>
     <h3>{{title}}</h3>
-    <el-form label-width="120px" @submit.native.prevent="save">
-      <el-form-item label="分类名称">
+    <el-form label-width="120px" @submit.native.prevent="save" :model="category">
+      <el-form-item label="分类名称" prop="name">
         <el-input v-model="category.name" placeholder="请输入新建分类名"></el-input>
       </el-form-item>
       <el-form-item>
@@ -17,7 +17,9 @@ export default {
   name: "CategoryEdit",
   data() {
     return {
-      category: {}
+      category: {
+        name: ""
+      }
     };
   },
   props: {

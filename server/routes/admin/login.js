@@ -14,7 +14,8 @@ router.post('/', async (req, res) => {
   assert(isValid, 422, '密码错误')
   // 返回 token
   const jwt = require('jsonwebtoken');
-  const token = jwt.sign({ id: item._id }, 'h6n9g0y2d6x4b4y2s3j');
+  const id = item.id
+  const token = jwt.sign({ id }, 'h6n9g0y2d6x4b4y2s3j');
   res.send({ token, username })
 })
 
