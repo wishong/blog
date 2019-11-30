@@ -3,8 +3,7 @@ import VueRouter from 'vue-router'
 
 const Login = () => import('../views/login/Login.vue');
 const Main = () => import('../views/main/Main.vue');
-const Profile = () => import('../views/profile/Profile.vue');
-const ChangePwd = () => import('../views/profile/ChangePwd.vue');
+const ChangePwd = () => import('../views/admin/ChangePwd.vue');
 const Admin = () => import('../views/admin/Admin.vue');
 const AdminEdit = () => import('../views/admin/AdminEdit.vue');
 const Category = () => import('../views/category/Category.vue');
@@ -15,7 +14,7 @@ const ArticlesEdit = () => import('../views/articles/ArticlesEdit.vue');
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', redirect: '/profile' },
+  { path: '/', redirect: '/admin' },
   { path: '/login', component: Login, meta: { isPublic: true } },
   {
     path: '/',
@@ -23,8 +22,7 @@ const routes = [
     children: [
       { path: 'admin', component: Admin },
       { path: 'admin/create', component: AdminEdit },
-      { path: 'profile', component: Profile },
-      { path: 'profile/changePwd/:username', component: ChangePwd },
+      { path: 'admin/changePwd/:username', component: ChangePwd },
       { path: 'categories', component: Category },
       { path: 'categories/create', component: CategoryEdit },
       { path: 'categories/edit/:id', component: CategoryEdit, props: true },

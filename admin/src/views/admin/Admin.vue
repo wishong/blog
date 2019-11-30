@@ -30,6 +30,10 @@ export default {
       this.items = res.data;
     },
     async remove(row) {
+      if (row.username === "admin") {
+        this.$message.error("此用户无法删除");
+        return;
+      }
       this.$confirm(`是否要删除 "${row.username}" 管理员?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -51,6 +55,9 @@ export default {
             duration: 1000
           });
         });
+    },
+    test() {
+      console.log(1);
     }
   }
 };

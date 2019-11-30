@@ -4,11 +4,12 @@
       <el-menu router :default-active="$route.path">
         <el-submenu index="1">
           <template slot="title">
-            <i class="el-icon-user"></i>个人中心
+            <i class="el-icon-user"></i>管理员
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/profile">我的</el-menu-item>
-            <el-menu-item :index="`/profile/changePwd/${username}`">修改密码</el-menu-item>
+            <el-menu-item index="/admin">管理员列表</el-menu-item>
+            <el-menu-item index="/admin/create">新建管理员</el-menu-item>
+            <el-menu-item :index="`/admin/changePwd/${username}`">修改密码</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="2">
@@ -29,15 +30,6 @@
             <el-menu-item index="/articles/create">新建文章</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="4">
-          <template slot="title">
-            <i class="el-icon-setting"></i>系统设置
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="/admin">管理员列表</el-menu-item>
-            <el-menu-item index="/admin/create">新建管理员</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
       </el-menu>
     </el-aside>
     <el-container>
@@ -48,7 +40,7 @@
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="profile">我的</el-dropdown-item>
+            <el-dropdown-item command="changePwd">修改密码</el-dropdown-item>
             <el-dropdown-item command="exit">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -64,11 +56,19 @@
 <script>
 export default {
   name: "Main",
+  created() {
+    this.username = JSON.parse(sessionStorage.username);
+  },
+  data() {
+    return {
+      username: ""
+    };
+  },
   methods: {
     handleCommand(command) {
       switch (command) {
-        case "profile":
-          this.$router.push("/profile");
+        case "changePwd":
+          this.$router.push(`/admin/changePwd/${this.username}`);
           break;
         case "exit":
           this.$confirm("是否退出当前账号")
@@ -81,11 +81,6 @@ export default {
         default:
           break;
       }
-    }
-  },
-  computed: {
-    username() {
-      return JSON.parse(sessionStorage.username);
     }
   }
 };
