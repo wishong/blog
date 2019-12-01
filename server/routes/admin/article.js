@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const acticleModel = require('../../db/models/article');
 
-// 获取文章列表
+// 获取文章列表总数
 router.get('/', async (req, res) => {
-  const items = await acticleModel.find().populate('categoryId').limit(10);
-  res.send(items);
+  const total = await acticleModel.countDocuments()
+  res.send(total);
+  // const items = await acticleModel.find().populate('categoryId').limit(10);
 });
 
 // 详情查询
@@ -18,6 +19,13 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const item = await acticleModel.create(req.body);
   res.send(item);
+})
+
+// 分页
+router.post('/getList', async (req, res) => {
+  const { pageSize, currentPage } = req.body;
+  const items = await acticleModel.find().populate('categoryId').limit(pageSize).skip((currentPage - 1) * pageSize)
+  res.send(items)
 })
 
 // 文章修改

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>文章列表</h3>
-    <el-table :data="items">
+    <el-table :data="items.articles">
       <el-table-column prop="_id" label="ID"></el-table-column>
       <el-table-column prop="categoryId.name" label="文章分类"></el-table-column>
       <el-table-column prop="title" label="文章标题"></el-table-column>
@@ -19,6 +19,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      :total="items.total"
+      :page-size="items.pageSize"
+      @current-change="currentChange"
+      :current-page="items.currentPage"
+    ></el-pagination>
   </div>
 </template>
 
@@ -27,16 +35,35 @@ export default {
   name: "Articles",
   data() {
     return {
-      items: []
+      items: {
+        articles: [],
+        total: 0,
+        pageSize: 4,
+        currentPage: 1
+      }
     };
   },
   created() {
     this.fetch();
+    this.getList();
   },
   methods: {
     async fetch() {
       const res = await this.$http.get("/articles");
-      this.items = res.data;
+      this.items.total = res.data;
+    },
+    async getList() {
+      const res = await this.$http.post("/articles/getList", {
+        pageSize: this.items.pageSize,
+        currentPage: this.items.currentPage
+      });
+      console.log(res.data);
+
+      this.items.articles = res.data;
+    },
+    currentChange(page) {
+      this.items.currentPage = page;
+      this.getList();
     },
     edit(row) {
       this.$router.push(`/articles/edit/${row._id}`);
@@ -49,12 +76,14 @@ export default {
       })
         .then(async () => {
           await this.$http.delete(`/articles/delete/${row._id}`);
+          this.items.currentPage = 1;
+          this.getList();
+          this.fetch();
           this.$message({
             type: "success",
             message: "删除成功!",
             duration: 1000
           });
-          this.fetch();
         })
         .catch(() => {
           this.$message({
@@ -63,13 +92,16 @@ export default {
             duration: 1000
           });
         });
-    },
-    filterTag(value, row) {
-      return row.categoryId.name === value;
     }
   }
 };
 </script>
 
 <style scoped>
+.el-pagination {
+  position: fixed;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
 </style>
