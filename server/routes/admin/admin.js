@@ -31,7 +31,7 @@ router.put('/changePwd/:username', async (req, res) => {
   const { username } = req.params;
   const item = await adminModel.findOne({ username });
   const isValid = require('bcryptjs').compareSync(oldpwd, item.password);
-  assert(isValid, 422, '旧密码错误')
+  assert(isValid, 422, '旧密码错误');
   const isRepeat = require('bcryptjs').compareSync(password, item.password);
   assert(!isRepeat, 422, '新旧密码一样');
   const result = await adminModel.updateOne({ username }, { password });
