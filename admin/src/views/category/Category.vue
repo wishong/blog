@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h3>分类列表</h3>
-    <el-table :data="items.categoris">
+    <el-table :data="items.categoris" v-loading="loading">
       <el-table-column prop="_id" label="ID"></el-table-column>
       <el-table-column prop="name" label="分类名称"></el-table-column>
       <el-table-column fixed="right" label="操作">
@@ -36,13 +36,15 @@ export default {
         total: 0,
         pageSize: 8,
         currentPage: 1
-      }
+      },
+      loading: true
     };
   },
   methods: {
     async fetch() {
       const res = await this.$http.get("/categories");
       this.items.total = res.data;
+      this.loading = false;
     },
     async getList() {
       const res = await this.$http.post("/categories/getList", {

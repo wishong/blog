@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>管理员列表</h3>
-    <el-table :data="items" ref="table">
+    <el-table :data="items" ref="table" v-loading="loading">
       <el-table-column prop="_id" label="ID"></el-table-column>
       <el-table-column prop="username" label="管理员名称"></el-table-column>
       <el-table-column fixed="right" label="操作">
@@ -21,13 +21,15 @@ export default {
   },
   data() {
     return {
-      items: []
+      items: [],
+      loading: true
     };
   },
   methods: {
     async fetch() {
       const res = await this.$http.get("/admins");
       this.items = res.data;
+      this.loading = false;
     },
     async remove(row) {
       if (row.username === "admin") {
