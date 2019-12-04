@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     async categories() {
-      const res = await this.$http.get("/categories");
+      const res = await this.$http.get("/categories/list");
       this.parentCategories = res.data;
     },
     async save() {

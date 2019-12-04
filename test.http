@@ -1,4 +1,4 @@
-GET http://localhost:3000/admin/api/admins
+GET http://localhost:3000/client/api/articles/home
 
 ###
 POSt http://localhost:3000/admin/api/admins

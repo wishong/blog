@@ -1,33 +1,22 @@
 <template>
-  <div>
-    <div class="nav-bar">
-      <div class="left">
-        <!-- <img src="../../assets/img/吐舌-2.png" /> -->
-        123
-      </div>
-      <div class="right">
-        <ul>
-          <li v-for="item in navList" :key="item.path">
-            <div class="box">
-              <div class="front">{{ item.title }}</div>
-              <router-link :to="item.path">
-                <div class="bottom">{{ item.title }}</div>
-              </router-link>
-            </div>
-          </li>
-        </ul>
-        <div class="el-icon-menu"></div>
-      </div>
+  <div class="nav-bar">
+    <div class="left">
+      <img src="@/assets/img/icon.png" />
+      <p>WISH ' s Blog</p>
     </div>
-    <!-- <div class="mobile-list">
+    <div class="right">
       <ul>
-        <li v-for="item in navList" :key="item">
-          <a href="#">
-            <p>{{ item }}</p>
-          </a>
+        <li v-for="item in navList" :key="item.path">
+          <div class="box">
+            <div :class="{front:true,actived:item.path === $route.path}">{{ item.title }}</div>
+            <router-link :to="item.path">
+              <div :class="{bottom:true,actived:item.path === $route.path}">{{ item.title }}</div>
+            </router-link>
+          </div>
         </li>
       </ul>
-    </div>-->
+      <div class="el-icon-menu" @click="show"></div>
+    </div>
   </div>
 </template>
 
@@ -41,8 +30,14 @@ export default {
         { title: "分类", path: "/categories" },
         { title: "归档", path: "/archives" },
         { title: "关于", path: "/about" }
-      ]
+      ],
+      isShow: ""
     };
+  },
+  methods: {
+    show() {
+      this.$emit("showMobileList", this.navList);
+    }
   }
 };
 </script>
@@ -56,7 +51,27 @@ export default {
 }
 
 .left {
-  margin-left: 50px;
+  margin-left: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.left img {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+
+.left img:hover {
+  transform: translateX(170px) rotate(360deg);
+  transition: 2s all ease;
+}
+
+.left p {
+  color: #fff;
+  margin-left: 10px;
+  font-size: 20px;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
 .right {
@@ -81,8 +96,9 @@ export default {
 
 a {
   text-decoration: none;
-  color: #0d77b4;
+  color: #fff;
 }
+
 .box {
   position: relative;
   width: 100%;
@@ -112,6 +128,10 @@ a {
   color: #fff;
 }
 
+.actived {
+  color: #9a9a9a;
+}
+
 .bottom {
   transform: translateY(17.5px) rotateX(-90deg);
 }
@@ -126,20 +146,15 @@ a {
   color: #fff;
 }
 
-.mobile-list {
-  background-color: #fff;
-  text-align: center;
-}
-.mobile-list a {
-  color: #ffff;
-}
-
 @media screen and (max-width: 600px) {
   .nav-bar ul {
     display: none;
   }
   .el-icon-menu {
     display: block;
+  }
+  .left {
+    margin-left: 20px;
   }
 }
 </style>
