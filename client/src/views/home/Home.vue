@@ -1,7 +1,9 @@
 <template>
   <div class="home-container">
     <articles />
-    <side-bar />
+    <div :class="{ 'side-container': true , 'fixed': isFixed }" ref="side">
+      <side-bar />
+    </div>
     <back-top />
     <div class="profile-icon">
       <span class="el-icon-user"></span>
@@ -16,6 +18,25 @@ import BackTop from "@/components/backTop/BackTop";
 
 export default {
   name: "Home",
+  mounted() {
+    window.addEventListener("scroll", this.watchScroll);
+    this.height = this.$refs.side.offsetTop;
+  },
+  data() {
+    return {
+      height: 0,
+      isFixed: false
+    };
+  },
+  methods: {
+    watchScroll() {
+      const scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      this.isFixed = scrollTop > this.height ? true : false;
+    }
+  },
   components: {
     SideBar,
     Articles,
@@ -29,6 +50,7 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+
 .profile-icon {
   width: 40px;
   height: 40px;
@@ -52,9 +74,26 @@ export default {
   color: #363636;
 }
 
+.side-container {
+  padding-right: 20px;
+  width: 25%;
+  transition: 0.5s all ease;
+}
+
+.fixed {
+  position: fixed;
+  right: 0;
+  top: 0;
+  transform: translateY(60px);
+  transition: 0.5s all ease;
+}
+
 @media screen and (max-width: 920px) {
   .profile-icon {
     display: block;
+  }
+  .side-container {
+    display: none;
   }
 }
 </style>

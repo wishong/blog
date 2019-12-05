@@ -6,6 +6,11 @@ import http from './http'
 import './plugins/element.js'
 import 'normalize.css'
 
+// 富文本编辑器
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+Vue.use(mavonEditor)
+
 Vue.config.productionTip = false
 
 Vue.prototype.$http = http;

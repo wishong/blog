@@ -17,6 +17,9 @@
           <el-form-item label="文章标题">
             <el-input v-model="article.title" placeholder="请输入文章标题" maxlength="30" show-word-limit></el-input>
           </el-form-item>
+          <el-form-item label="文章描述">
+            <el-input v-model="article.describe" placeholder="请输入文章描述" show-word-limit></el-input>
+          </el-form-item>
           <el-form-item label="文章封面">
             <el-upload
               class="avatar-uploader"

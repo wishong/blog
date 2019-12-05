@@ -75,6 +75,8 @@ export default {
   height: 520px;
   background: url("../../assets/img/bg.jpg") no-repeat center fixed;
   background-size: cover;
+  position: relative;
+  z-index: 999;
 }
 
 .hide {
@@ -119,7 +121,7 @@ export default {
   transition: 1s all ease;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
   .nav-container {
     height: 250px;
     background-attachment: scroll;

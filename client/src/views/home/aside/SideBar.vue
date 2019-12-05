@@ -1,5 +1,5 @@
 <template>
-  <div class="side-container">
+  <div>
     <side-bar-top />
     <side-bar-bottom />
   </div>
@@ -19,14 +19,4 @@ export default {
 </script>
 
 <style scoped>
-.side-container {
-  margin-right: 20px;
-  width: 25%;
-}
-
-@media screen and (max-width: 920px) {
-  .side-container {
-    display: none;
-  }
-}
 </style>

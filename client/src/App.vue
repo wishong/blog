@@ -30,7 +30,13 @@ export default {
 <style scoped>
 @import url("./assets/css/base.css");
 main {
-  overflow: hidden;
   margin: 30px 0;
+}
+main::after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
 }
 </style>

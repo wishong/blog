@@ -6,7 +6,6 @@ const acticleModel = require('../../db/models/article');
 router.get('/', async (req, res) => {
   const total = await acticleModel.countDocuments()
   res.send(total);
-  const items = await acticleModel.find().populate('categoryId').limit(10);
 });
 
 // 详情查询
