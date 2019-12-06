@@ -22,6 +22,9 @@ export default {
     window.addEventListener("scroll", this.watchScroll);
     this.height = this.$refs.side.offsetTop;
   },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.watchScroll);
+  },
   data() {
     return {
       height: 0,
@@ -61,7 +64,7 @@ export default {
   background-color: #fff;
   position: fixed;
   bottom: 120px;
-  right: 40px;
+  right: 20px;
   display: none;
 }
 
@@ -75,20 +78,21 @@ export default {
 }
 
 .side-container {
-  padding-right: 20px;
+  padding-right: 35px;
   width: 25%;
-  transition: 0.5s all ease;
+  transition: 1s all ease;
 }
 
 .fixed {
+  width: 25.3%;
   position: fixed;
-  right: 0;
+  right: -18px;
   top: 0;
   transform: translateY(60px);
-  transition: 0.5s all ease;
+  transition: 1s all ease;
 }
 
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1020px) {
   .profile-icon {
     display: block;
   }

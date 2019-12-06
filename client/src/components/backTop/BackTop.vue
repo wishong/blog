@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-backtop :visibility-height="200" :bottom="50">
+    <el-backtop :visibility-height="200" :bottom="50" :right="20">
       <div class="el-icon-arrow-up"></div>
     </el-backtop>
   </div>

@@ -25,6 +25,9 @@ export default {
   mounted() {
     window.addEventListener("scroll", this.watchScroll);
   },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.watchScroll);
+  },
   data() {
     return {
       isHide: "",
@@ -121,14 +124,14 @@ export default {
   transition: 1s all ease;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 750px) {
   .nav-container {
     height: 250px;
     background-attachment: scroll;
   }
 }
 
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1020px) {
   .nav-container {
     height: 400px;
   }

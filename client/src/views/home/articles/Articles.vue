@@ -1,12 +1,13 @@
 <template>
   <div class="articles-container">
     <div class="articles-item" v-for="item in articlesList.items" :key="item._id">
-      <h1 :title="item.title">{{ item.title }}</h1>
+      <div class="title">
+        <router-link to>{{ item.title }}</router-link>
+      </div>
       <span class="el-icon-time">&nbsp;{{ item.createTime | createTime }}</span>
-      <hr />
       <div class="cover">
         <router-link to>
-          <el-image :src="item.coverImg" lazy></el-image>
+          <img :src="item.coverImg" />
         </router-link>
       </div>
       <p>{{ item.describe }}</p>
@@ -35,12 +36,16 @@ export default {
         pageSize: 6,
         currentPage: 1,
         items: []
-      }
+      },
+      timer: null
     };
   },
   created() {
     this.fetchTotal();
     this.getList();
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
   },
   methods: {
     async fetchTotal() {
@@ -54,12 +59,21 @@ export default {
       });
       this.articlesList.items = res.data;
     },
+    scrollTo(element, to, duration) {
+      if (duration <= 0) return;
+      const diff = to - element.scrollTop;
+      const perTick = (diff / duration) * 10;
+      this.timer = setTimeout(() => {
+        element.scrollTop += perTick;
+        if (element.scrollTop === to) return;
+        this.scrollTo(element, to, duration - 10);
+      }, 10);
+    },
     currentChange(page) {
       this.articlesList.currentPage = page;
       this.getList();
-      const clientWidth = document.documentElement.clientWidth;
-      const flag = clientWidth > 910 ? 470 : 350;
-      document.documentElement.scrollTop = flag;
+      const pos = document.documentElement.clientWidth > 1010 ? 470 : 350;
+      this.scrollTo(document.documentElement, pos, 250);
     }
   },
   filters: {
@@ -80,7 +94,10 @@ export default {
 }
 
 .articles-item {
-  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* min-height: 500px; */
   margin: 25px 15px;
   width: 45%;
   padding: 10px;
@@ -144,19 +161,14 @@ export default {
 }
 
 .cover {
-  overflow: hidden;
-}
-
-.articles-item .el-image {
+  height: 60%;
   width: 100%;
-  max-height: 450px;
-  margin-top: 15px;
 }
 
-.articles-item .el-image:hover {
-  opacity: 0.8;
-  transform: scale(1.05);
-  transition: 0.7s all ease;
+.cover img {
+  margin-top: 10px;
+  height: 100%;
+  width: 100%;
 }
 
 .paster {
@@ -191,7 +203,8 @@ export default {
   content: "";
   position: absolute;
   top: -25px;
-  left: 30%;
+  left: 50%;
+  transform: translateX(-50%);
   width: 130px;
   height: 40px;
   background: -webkit-gradient(
@@ -214,39 +227,42 @@ export default {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
+.title {
+  text-align: center;
+  margin: 15px 30px 0;
+  max-width: 80%;
+  font-size: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box; /* 将对象作为弹性伸缩盒子模型显示 */
+  -webkit-line-clamp: 1; /* 控制最多显示几行 */
+  -webkit-box-orient: vertical; /* 设置或检索伸缩盒对象的子元素的排列方式 */
+}
+
+.title a {
+  color: #363636;
+}
+
 .el-icon-time {
-  padding: 0 10px 5px 0;
+  padding: 5px 10px 5px 0;
   text-align: right;
   width: 100%;
   font-size: 13px;
   font-weight: bold;
   color: #9a9a9a;
+  border-bottom: 1px solid #ccc;
 }
 
 p {
+  margin-top: 10px;
   padding: 20px 5px 0;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box; /* 将对象作为弹性伸缩盒子模型显示 */
   -webkit-line-clamp: 2; /* 控制最多显示几行 */
   -webkit-box-orient: vertical; /* 设置或检索伸缩盒对象的子元素的排列方式 */
-  min-height: 45px;
   text-indent: 2rem;
   min-height: 57px;
-}
-
-h1 {
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  padding: 10px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box; /* 将对象作为弹性伸缩盒子模型显示 */
-  -webkit-line-clamp: 2; /* 控制最多显示几行 */
-  -webkit-box-orient: vertical; /* 设置或检索伸缩盒对象的子元素的排列方式 */
-  min-height: 65px;
 }
 
 .el-pagination {
@@ -288,16 +304,19 @@ h1 {
   background-color: #fff;
 }
 
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1020px) {
   .articles-container {
     width: 100%;
   }
   .articles-item {
     width: 45%;
   }
+  .cover {
+    height: 65%;
+  }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 750px) {
   .articles-container {
     padding: 0;
   }
@@ -309,6 +328,18 @@ h1 {
   }
   .paster-mobile {
     display: block;
+  }
+  .cover {
+    height: 420px;
+  }
+  .cover img {
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .cover {
+    height: 320px;
   }
 }
 </style>
