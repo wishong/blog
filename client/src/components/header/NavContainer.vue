@@ -1,5 +1,9 @@
 <template>
-  <div class="nav-container" ref="container">
+  <div
+    class="nav-container"
+    ref="container"
+    :style="{backgroundImage: 'url(' + (coverImgUrl ? coverImgUrl : baseImg) + ')', backgroundSize:'cover', backgroundRepeat: 'no-repeat'}"
+  >
     <nav-bar
       :class="{'hide':isHide,'nav-bar':true,'complete':isComplete}"
       @showMobileList="showMobileList"
@@ -14,6 +18,8 @@
         </li>
       </ul>
     </div>
+    <h1>{{ des }}</h1>
+    <h1>{{ describe }}</h1>
   </div>
 </template>
 
@@ -30,6 +36,7 @@ export default {
   },
   data() {
     return {
+      baseImg: require("../../assets/img/bg.jpg"),
       isHide: "",
       isComplete: "",
       scrollFlag: 0,
@@ -60,6 +67,17 @@ export default {
   },
   components: {
     NavBar
+  },
+  computed: {
+    coverImgUrl() {
+      return this.$store.state.articleInfo.coverImg;
+    },
+    describe() {
+      return this.$store.state.articleInfo.describe;
+    },
+    des() {
+      return this.$store.state.des;
+    }
   }
 };
 </script>
@@ -70,14 +88,17 @@ export default {
   transition: 0.7s all ease;
   background-color: #363636;
   opacity: 0.6;
-  box-shadow: 0 1px 2px #ccc;
+  box-shadow: 0 1px 2px #666;
 }
 
 .nav-container {
   width: 100%;
   height: 520px;
   background: url("../../assets/img/bg.jpg") no-repeat center fixed;
-  background-size: cover;
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+  background-attachment: fixed;
+  background-position: center;
   position: relative;
   z-index: 999;
 }
@@ -97,6 +118,7 @@ export default {
   position: fixed;
   width: 100%;
   transition: 1s all ease;
+  z-index: 999;
 }
 
 .mobileList ul {
@@ -124,10 +146,31 @@ export default {
   transition: 1s all ease;
 }
 
+h1 {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  padding: 0 30px;
+}
+
+h1:first-of-type {
+  top: 40%;
+  font-size: 50px;
+  letter-spacing: 2px;
+}
+
 @media screen and (max-width: 750px) {
   .nav-container {
     height: 250px;
     background-attachment: scroll;
+  }
+  h1 {
+    font-size: 18px;
+    top: 70%;
   }
 }
 

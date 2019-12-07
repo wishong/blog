@@ -4,9 +4,7 @@
       <nav-container />
     </header>
     <main>
-      <keep-alive>
-        <router-view></router-view>
-      </keep-alive>
+      <router-view />
     </main>
     <footer>
       <footer-container />

@@ -5,9 +5,15 @@
       <side-bar />
     </div>
     <back-top />
-    <div class="profile-icon">
+    <div class="profile-icon" @click="drawer = true">
       <span class="el-icon-user"></span>
     </div>
+    <el-drawer :visible.sync="drawer" :direction="direction" size="80%" :modal="false">
+      <div class="profile-mobile">
+        <side-bar-top />
+        <side-bar-bottom />
+      </div>
+    </el-drawer>
   </div>
 </template>
 
@@ -15,6 +21,8 @@
 import SideBar from "./aside/SideBar";
 import Articles from "./articles/Articles";
 import BackTop from "@/components/backTop/BackTop";
+import SideBarTop from "./aside/SideBarTop";
+import SideBarBottom from "./aside/SideBarBottom";
 
 export default {
   name: "Home",
@@ -28,7 +36,9 @@ export default {
   data() {
     return {
       height: 0,
-      isFixed: false
+      isFixed: false,
+      drawer: false,
+      direction: "ltr"
     };
   },
   methods: {
@@ -43,7 +53,9 @@ export default {
   components: {
     SideBar,
     Articles,
-    BackTop
+    BackTop,
+    SideBarTop,
+    SideBarBottom
   }
 };
 </script>
@@ -52,6 +64,21 @@ export default {
 .home-container {
   display: flex;
   justify-content: space-between;
+}
+
+.side-container {
+  padding-right: 35px;
+  width: 25%;
+  transition: 1s all ease;
+}
+
+.fixed {
+  width: 25.3%;
+  position: fixed;
+  right: -5px;
+  top: 0;
+  transform: translateY(60px);
+  transition: 1s all ease;
 }
 
 .profile-icon {
@@ -77,19 +104,21 @@ export default {
   color: #363636;
 }
 
-.side-container {
-  padding-right: 35px;
-  width: 25%;
-  transition: 1s all ease;
+/deep/.el-drawer {
+  box-shadow: 0 8px 10px 20vw rgba(0, 0, 0, 0.2),
+    0 16px 24px 20vw rgba(0, 0, 0, 0.14), 0 6px 30px 20vw rgba(0, 0, 0, 0.12);
 }
 
-.fixed {
-  width: 25.3%;
-  position: fixed;
-  right: -18px;
-  top: 0;
-  transform: translateY(60px);
-  transition: 1s all ease;
+/deep/.el-drawer:focus {
+  outline: none;
+}
+
+/deep/.el-drawer__close-btn:focus {
+  outline: none;
+}
+
+/deep/.el-drawer__header {
+  margin-bottom: 5px;
 }
 
 @media screen and (max-width: 1020px) {

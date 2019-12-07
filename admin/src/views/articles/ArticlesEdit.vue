@@ -34,7 +34,12 @@
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane label="文章内容">
-          <mavon-editor v-model="article.content" class="editor" @imgAdd="imgAdd" ref="md" />
+          <mavon-editor
+            v-model="article.content"
+            class="editor"
+            @imgAdd="imgAdd"
+            ref="md"
+          />
         </el-tab-pane>
       </el-tabs>
       <el-form-item>

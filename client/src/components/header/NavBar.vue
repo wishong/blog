@@ -48,6 +48,7 @@ export default {
   height: 50px;
   display: flex;
   justify-content: space-between;
+  z-index: 99;
 }
 
 .left {
@@ -71,7 +72,6 @@ export default {
   color: #fff;
   margin-left: 10px;
   font-size: 20px;
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
 .right {

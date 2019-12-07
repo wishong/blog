@@ -7,10 +7,10 @@
           <router-link to>{{ item }}</router-link>
         </div>
       </div>
-      <span class="el-icon-edit">&nbsp;最近文章</span>
+      <span class="el-icon-reading">&nbsp;最近文章</span>
       <ul>
         <li v-for="item in articlesList" :key="item._id" :title="item.createTime | createTime">
-          <router-link to>{{ item.title }}</router-link>
+          <router-link :to="'/article/'+item._id">{{ item.title }}</router-link>
         </li>
       </ul>
     </el-card>

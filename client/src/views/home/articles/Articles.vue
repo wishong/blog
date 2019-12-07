@@ -2,18 +2,16 @@
   <div class="articles-container">
     <div class="articles-item" v-for="item in articlesList.items" :key="item._id">
       <div class="title">
-        <router-link to>{{ item.title }}</router-link>
+        <router-link :to="'/article/'+item._id">{{ item.title }}</router-link>
       </div>
       <span class="el-icon-time">&nbsp;{{ item.createTime | createTime }}</span>
       <div class="cover">
-        <router-link to>
-          <img :src="item.coverImg" />
-        </router-link>
+        <img :src="item.coverImg" />
       </div>
       <p>{{ item.describe }}</p>
       <div class="paster">{{ item.categoryId.name }}</div>
       <div class="paster-mobile">{{ item.categoryId.name }}</div>
-      <el-button round>阅读全文</el-button>
+      <el-button round @click="$router.push('/article/'+item._id)">阅读全文</el-button>
     </div>
     <el-pagination
       background
@@ -189,7 +187,6 @@ export default {
   border-right: 1px dashed rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
   -webkit-transform: rotate(-30deg) skew(0, 0) translate(-30px, -20px);
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   text-align: center;
   line-height: 40px;
   font-size: 20px;
@@ -218,13 +215,24 @@ export default {
   border-left: 1px dashed rgba(0, 0, 0, 0.1);
   border-right: 1px dashed rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   text-align: center;
   line-height: 40px;
   font-size: 20px;
   color: #828282;
   font-weight: bold;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+p {
+  margin-top: 10px;
+  padding: 20px 5px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box; /* 将对象作为弹性伸缩盒子模型显示 */
+  -webkit-line-clamp: 2; /* 控制最多显示几行 */
+  -webkit-box-orient: vertical; /* 设置或检索伸缩盒对象的子元素的排列方式 */
+  text-indent: 2rem;
+  min-height: 57px;
 }
 
 .title {
@@ -251,18 +259,6 @@ export default {
   font-weight: bold;
   color: #9a9a9a;
   border-bottom: 1px solid #ccc;
-}
-
-p {
-  margin-top: 10px;
-  padding: 20px 5px 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box; /* 将对象作为弹性伸缩盒子模型显示 */
-  -webkit-line-clamp: 2; /* 控制最多显示几行 */
-  -webkit-box-orient: vertical; /* 设置或检索伸缩盒对象的子元素的排列方式 */
-  text-indent: 2rem;
-  min-height: 57px;
 }
 
 .el-pagination {
