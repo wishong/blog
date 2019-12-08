@@ -163,7 +163,7 @@ h1:first-of-type {
   letter-spacing: 2px;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 768px) {
   .nav-container {
     height: 250px;
     background-attachment: scroll;
@@ -174,7 +174,7 @@ h1:first-of-type {
   }
 }
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 992px) {
   .nav-container {
     height: 400px;
   }

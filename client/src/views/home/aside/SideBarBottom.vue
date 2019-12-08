@@ -81,19 +81,22 @@ ul {
 }
 
 ul li {
-  margin: 10px 7px;
+  margin: 12px 7px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   position: relative;
+  background: linear-gradient(to right, #fafafa 0%, #fff 100%);
 }
+
 ul li::before {
   content: "";
   position: absolute;
   height: 100%;
-  width: 3px;
-  background-color: #333;
+  width: 2px;
+  background-color: #888;
 }
+
 ul li a {
   margin-left: 12px;
 }

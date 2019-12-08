@@ -146,7 +146,7 @@ a {
   color: #fff;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 768px) {
   .nav-bar ul {
     display: none;
   }

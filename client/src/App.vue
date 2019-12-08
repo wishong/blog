@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :key="key">
     <header>
       <nav-container />
     </header>
@@ -21,6 +21,16 @@ export default {
   components: {
     NavContainer,
     FooterContainer
+  },
+  data() {
+    return {
+      key: 1
+    };
+  },
+  watch: {
+    $route(to, from) {
+      this.key = new Date().getTime();
+    }
   }
 };
 </script>

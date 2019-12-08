@@ -8,7 +8,7 @@
     <div class="profile-icon" @click="drawer = true">
       <span class="el-icon-user"></span>
     </div>
-    <el-drawer :visible.sync="drawer" :direction="direction" size="80%" :modal="false">
+    <el-drawer :visible.sync="drawer" :direction="direction" size="50%" :modal="false">
       <div class="profile-mobile">
         <side-bar-top />
         <side-bar-bottom />
@@ -28,14 +28,12 @@ export default {
   name: "Home",
   mounted() {
     window.addEventListener("scroll", this.watchScroll);
-    this.height = this.$refs.side.offsetTop;
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.watchScroll);
   },
   data() {
     return {
-      height: 0,
       isFixed: false,
       drawer: false,
       direction: "ltr"
@@ -48,6 +46,11 @@ export default {
         document.documentElement.scrollTop ||
         document.body.scrollTop;
       this.isFixed = scrollTop > this.height ? true : false;
+    }
+  },
+  computed: {
+    height() {
+      return this.$refs.side.offsetTop || 550;
     }
   },
   components: {
@@ -73,7 +76,6 @@ export default {
 }
 
 .fixed {
-  width: 25.3%;
   position: fixed;
   right: -5px;
   top: 0;
@@ -104,9 +106,13 @@ export default {
   color: #363636;
 }
 
+.profile-mobile {
+  padding: 3%;
+}
+
 /deep/.el-drawer {
-  box-shadow: 0 8px 10px 20vw rgba(0, 0, 0, 0.2),
-    0 16px 24px 20vw rgba(0, 0, 0, 0.14), 0 6px 30px 20vw rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 10px 50vw rgba(0, 0, 0, 0.2),
+    0 16px 24px 50vw rgba(0, 0, 0, 0.14), 0 6px 30px 50vw rgba(0, 0, 0, 0.12);
 }
 
 /deep/.el-drawer:focus {
@@ -121,12 +127,22 @@ export default {
   margin-bottom: 5px;
 }
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 992px) {
   .profile-icon {
     display: block;
   }
   .side-container {
     display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /deep/.el-drawer {
+    box-shadow: 0 8px 10px 20vw rgba(0, 0, 0, 0.2),
+      0 16px 24px 20vw rgba(0, 0, 0, 0.14), 0 6px 30px 20vw rgba(0, 0, 0, 0.12);
+  }
+  /deep/.el-drawer {
+    width: 80% !important;
   }
 }
 </style>

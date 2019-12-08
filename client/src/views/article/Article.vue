@@ -33,6 +33,14 @@
         <router-link :to="'/article/'+next._id">{{ next.title }}</router-link>
       </div>
     </div>
+    <div class="artcile-footer-mobile">
+      <div class="prev-mobile" v-if="prev.title" title="上一篇">
+        <router-link :to="'/article/'+prev._id">{{ prev.title }}</router-link>
+      </div>
+      <div class="next-mobile" v-if="next.title" title="下一篇">
+        <router-link :to="'/article/'+next._id">{{ next.title }}</router-link>
+      </div>
+    </div>
     <back-top />
   </div>
 </template>
@@ -131,8 +139,7 @@ export default {
 }
 
 .article-container .artcile-footer {
-  margin: 20px 50px 0;
-  font-size: 20px;
+  margin: 20px 20px 0;
   position: relative;
 }
 
@@ -144,21 +151,23 @@ export default {
   position: absolute;
   top: 0;
   left: 50px;
+  z-index: 99;
 }
 
 .article-container .artcile-footer .next {
   position: absolute;
   top: 0;
   right: 50px;
+  z-index: 99;
 }
 
 .article-container .artcile-footer .prev::before {
   content: "";
   position: absolute;
   left: -15px;
-  top: 3px;
-  width: 15px;
-  height: 15px;
+  top: 5px;
+  width: 8px;
+  height: 8px;
   border-top: 2px solid #363636;
   border-left: 2px solid #363636;
   transform: rotate(-45deg);
@@ -168,19 +177,63 @@ export default {
   content: "";
   position: absolute;
   right: -15px;
-  top: 3px;
-  width: 15px;
-  height: 15px;
+  top: 5px;
+  width: 8px;
+  height: 8px;
   border-top: 2px solid #363636;
   border-right: 2px solid #363636;
   transform: rotate(45deg);
+}
+
+.article-container .artcile-footer-mobile {
+  margin: 20px 30px 0;
+  display: none;
+}
+
+.article-container .artcile-footer-mobile a {
+  color: #363636;
+}
+
+.article-container .artcile-footer-mobile .prev-mobile {
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 3px;
+}
+
+.article-container .artcile-footer-mobile .next-mobile {
+  position: relative;
+  padding-left: 3px;
+}
+
+.article-container .artcile-footer-mobile .prev-mobile::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  transform: rotate(-45deg);
+  position: absolute;
+  top: 7px;
+  left: -18px;
+  border-top: 2px solid #000;
+  border-right: 2px solid #000;
+}
+
+.article-container .artcile-footer-mobile .next-mobile::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 1px;
+  left: -18px;
+  border-bottom: 2px solid #000;
+  border-right: 2px solid #000;
 }
 
 .v-note-wrapper {
   position: inherit;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 768px) {
   .article-container .article-header .title {
     text-align: left;
     font-size: 20px;
@@ -188,14 +241,13 @@ export default {
   .article-container .article-header .other li {
     font-size: 14px;
   }
-}
 
-@media screen and (max-width: 500px) {
-  .article-container .artcile-footer .prev {
-    left: 15px;
+  .article-container .artcile-footer {
+    display: none;
   }
-  .article-container .artcile-footer .next {
-    right: 15px;
+
+  .article-container .artcile-footer-mobile {
+    display: block;
   }
 }
 </style>

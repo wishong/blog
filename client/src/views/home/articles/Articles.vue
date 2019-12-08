@@ -300,7 +300,7 @@ p {
   background-color: #fff;
 }
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 992px) {
   .articles-container {
     width: 100%;
   }
@@ -312,7 +312,7 @@ p {
   }
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 768px) {
   .articles-container {
     padding: 0;
   }

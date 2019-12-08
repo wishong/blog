@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-backtop :visibility-height="200" :bottom="50" :right="20">
+    <el-backtop :visibility-height="visibility" :bottom="bottom" :right="right">
       <div class="el-icon-arrow-up"></div>
     </el-backtop>
   </div>
@@ -8,7 +8,21 @@
 
 <script>
 export default {
-  name: "BackTop"
+  name: "BackTop",
+  props: {
+    bottom: {
+      type: Number,
+      default: 50
+    },
+    right: {
+      type: Number,
+      default: 20
+    },
+    visibility: {
+      type: Number,
+      default: 200
+    }
+  }
 };
 </script>
 
