@@ -63,7 +63,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .home-container {
   display: flex;
   justify-content: space-between;

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Vue from 'vue';
 import router from './router/index';
+import { showLoading, hideLoading } from '@/assets/js/loading';
 
 const http = axios.create({
   baseURL: 'http://localhost:3000/admin/api'
@@ -8,6 +9,7 @@ const http = axios.create({
 
 // 请求拦截器
 http.interceptors.request.use(config => {
+  showLoading();
   if (sessionStorage.token) {
     config.headers.Authorization = 'Beaer ' + sessionStorage.getItem('token');
   }
@@ -18,6 +20,7 @@ http.interceptors.request.use(config => {
 
 // 响应拦截器
 http.interceptors.response.use(res => {
+  hideLoading();
   return res;
 }, err => {
   Vue.prototype.$message({

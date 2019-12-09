@@ -1,10 +1,23 @@
 <template>
-  <div>123</div>
+  <div>
+    <info-top />
+    <info-bottom />
+    <back-top />
+  </div>
 </template>
 
 <script>
+import InfoTop from "./comps/Top";
+import InfoBottom from "./comps/Bottom";
+import BackTop from "@/components/backTop/BackTop";
+
 export default {
-  name: "Categories"
+  name: "Categories",
+  components: {
+    InfoTop,
+    InfoBottom,
+    BackTop
+  }
 };
 </script>
 

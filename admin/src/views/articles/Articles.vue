@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>文章列表</h3>
-    <el-table :data="items.articles" v-loading="loading">
+    <el-table :data="items.articles">
       <el-table-column prop="_id" label="ID"></el-table-column>
       <el-table-column prop="categoryId.name" label="文章分类"></el-table-column>
       <el-table-column prop="title" label="文章标题"></el-table-column>
@@ -40,8 +40,7 @@ export default {
         total: 0,
         pageSize: 4,
         currentPage: 1
-      },
-      loading: true
+      }
     };
   },
   created() {
@@ -52,7 +51,6 @@ export default {
     async fetch() {
       const res = await this.$http.get("/articles");
       this.items.total = res.data;
-      this.loading = false;
     },
     async getList() {
       const res = await this.$http.post("/articles/getList", {

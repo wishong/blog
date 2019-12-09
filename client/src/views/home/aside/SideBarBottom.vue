@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     async fetchCategories() {
-      const res = await this.$http.get("/categories/home");
+      const res = await this.$http.get("/categories");
       this.categoriesList = res.data;
     },
     async fetchArticles() {
@@ -86,7 +86,10 @@ ul li {
   text-overflow: ellipsis;
   white-space: nowrap;
   position: relative;
-  background: linear-gradient(to right, #fafafa 0%, #fff 100%);
+}
+
+ul li:hover {
+  background: linear-gradient(to right, #f0f0f0 0%, #fff 100%);
 }
 
 ul li::before {

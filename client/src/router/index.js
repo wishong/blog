@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 const Home = () => import('@/views/home/Home.vue');
 const Article = () => import('@/views/article/Article.vue');
 const Categories = () => import('@/views/categories/Categories.vue');
+const CategoriesDetail = () => import('../views/categories/detail/Detail.vue');
 const Archives = () => import('@/views/archives/Archives.vue');
 const About = () => import('@/views/about/About.vue');
 
@@ -14,6 +15,7 @@ const routes = [
   { path: '/home', component: Home },
   { path: '/article/:id', component: Article },
   { path: '/categories', component: Categories },
+  { path: '/categories/:name', component: CategoriesDetail },
   { path: '/archives', component: Archives },
   { path: '/about', component: About },
 ]
@@ -21,7 +23,14 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior(to, from, saveTop) {
+    if (saveTop) {
+      return saveTop;
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 })
 
 export default router

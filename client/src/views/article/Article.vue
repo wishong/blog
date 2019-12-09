@@ -52,7 +52,6 @@ export default {
   name: "Article",
   created() {
     this.fetch();
-    window.scrollTo(0, 0);
   },
   beforeDestroy() {
     this.$store.commit("clearArticleInfo");
@@ -71,7 +70,8 @@ export default {
   },
   methods: {
     async fetch() {
-      const res = await this.$http.get(`/articles/${this.id}`);
+      const res = await this.$http.get(`/articles/detail/${this.id}`);
+      console.log(res.data);
       this.articleInfo = res.data.item;
       this.prev = res.data.prev[0] || {};
       this.next = res.data.next[0] || {};
