@@ -39,14 +39,14 @@ export default {
 
 <style scoped>
 div {
-  margin-left: 20px;
+  margin: 20px;
 }
+
 .categories {
-  padding-left: 10px;
   margin-top: 20px;
 }
 
-.categories .active a {
+.categories .active {
   display: none;
 }
 
@@ -77,7 +77,38 @@ ul {
 }
 
 ul li {
-  margin: 10px;
-  font-size: 18px;
+  margin: 15px 5px;
+  font-size: 22px;
+  position: relative;
+}
+
+ul li::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: -15px;
+  width: 5px;
+  height: 5px;
+  background-color: #f0a22e;
+}
+
+ul li::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: -9px;
+  width: 5px;
+  height: 5px;
+  background-color: #db5e4e;
+}
+
+@media screen and (max-width: 768px) {
+  div {
+    margin: 10px;
+  }
+
+  ul li {
+    margin: 15px 10px;
+  }
 }
 </style>

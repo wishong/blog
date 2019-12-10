@@ -3,9 +3,7 @@
     <detail-top>
       <span slot="title" class="title">{{ name }}</span>
     </detail-top>
-    <detail-bottom>
-      <span slot="title">{{ name }}ARTICLES</span>
-    </detail-bottom>
+    <detail-bottom :list="list"></detail-bottom>
   </div>
 </template>
 
@@ -16,6 +14,18 @@ import DetailBottom from "../comps/Bottom";
 export default {
   name: "Detail",
   created() {
+    this.fetch();
+  },
+  data() {
+    return {
+      list: []
+    };
+  },
+  methods: {
+    async fetch() {
+      const res = await this.$http.get(`/articles/${this.$route.params.name}`);
+      this.list = res.data;
+    }
   },
   computed: {
     name() {
@@ -33,14 +43,4 @@ export default {
 .title {
   position: relative;
 }
-
-/* .title::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 2px;
-  background-color: #000;
-} */
 </style>

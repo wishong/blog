@@ -1,7 +1,7 @@
 <template>
   <div>
     <info-top />
-    <info-bottom />
+    <info-bottom :list="list" />
     <back-top />
   </div>
 </template>
@@ -13,6 +13,20 @@ import BackTop from "@/components/backTop/BackTop";
 
 export default {
   name: "Categories",
+  created() {
+    this.fetch();
+  },
+  data() {
+    return {
+      list: []
+    };
+  },
+  methods: {
+    async fetch() {
+      const res = await this.$http.get("/articles");
+      this.list = res.data;
+    }
+  },
   components: {
     InfoTop,
     InfoBottom,

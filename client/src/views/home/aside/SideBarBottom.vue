@@ -4,7 +4,7 @@
       <span class="el-icon-collection-tag">&nbsp;分类</span>
       <div class="tagList">
         <div class="tag" v-for="item in categoriesList" :key="item">
-          <router-link to>{{ item }}</router-link>
+          <router-link :to="'/categories/'+item">{{ item }}</router-link>
         </div>
       </div>
       <span class="el-icon-reading">&nbsp;最近文章</span>
