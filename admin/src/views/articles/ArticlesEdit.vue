@@ -94,9 +94,8 @@ export default {
         headers: { "Content-Type": "multipart/form-data" }
       };
       const timeFilter = this.$options.filters["time"];
-      const keyname = timeFilter(new Date()) + "/content/" + $file.name;
-      const res = await this.$http.get("/uploads");
-      console.log(res.data);
+      const keyname = timeFilter(new Date()) + "/" + $file.name;
+      const res = await this.$http.get("/upload");
       const formdata = new FormData();
       formdata.append("file", $file);
       formdata.append("token", res.data.upToken);
@@ -112,8 +111,8 @@ export default {
         headers: { "Content-Type": "multipart/form-data" }
       };
       const timeFilter = this.$options.filters["time"];
-      const keyname = timeFilter(new Date()) + "/cover/" + req.file.name;
-      const res = await this.$http.get("/uploads");
+      const keyname = timeFilter(new Date()) + "/" + req.file.name;
+      const res = await this.$http.get("/upload");
       const formdata = new FormData();
       formdata.append("file", req.file);
       formdata.append("token", res.data.upToken);
@@ -135,7 +134,7 @@ export default {
       const year = value.getFullYear();
       const month = padDate(value.getMonth() + 1);
       const day = padDate(value.getDate());
-      return `${year}-${month}-${day}`;
+      return `${year}${month}${day}`;
     }
   }
 };

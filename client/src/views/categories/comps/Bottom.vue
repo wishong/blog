@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: "Articles",
+  name: "Bottom",
   data() {
     return {
       currentIndex: -1
@@ -77,7 +77,7 @@ export default {
   height: 100%;
   background-color: #363636;
   opacity: 0.7;
-  transition: 0.7s all ease;
+  transition: 1s all ease;
 }
 
 .container img {
@@ -93,7 +93,7 @@ export default {
   background-color: #363636;
   opacity: 0.7;
   text-align: center;
-  transition: 0.7s all ease;
+  transition: 1s all ease;
 }
 
 .container .info .info-category {

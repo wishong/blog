@@ -1,21 +1,6 @@
 <template>
   <div class="article-container">
-    <div class="article-header">
-      <div class="title">{{ articleInfo.title }}</div>
-      <div class="other">
-        <ul>
-          <li class="el-icon-collection-tag">&nbsp;{{articleInfo.categoryId.name}}</li>
-          <li
-            class="el-icon-time"
-            :title="`创建时间:${articleInfo.createTime}`"
-          >&nbsp;{{articleInfo.createTime | time}}</li>
-          <li
-            class="el-icon-edit"
-            :title="`修改时间:${articleInfo.updateTime}`"
-          >&nbsp;{{articleInfo.updateTime | time}}</li>
-        </ul>
-      </div>
-    </div>
+    <article-header :articleInfo="articleInfo" />
     <mavon-editor
       :value="articleInfo.content"
       :subfield="prop.subfield"
@@ -25,27 +10,14 @@
       :scrollStyle="prop.scrollStyle"
       :codeStyle="prop.codeStyle"
     ></mavon-editor>
-    <div class="artcile-footer">
-      <div class="prev" v-if="prev.title" title="上一篇">
-        <router-link :to="'/article/'+prev._id">{{ prev.title }}</router-link>
-      </div>
-      <div class="next" v-if="next.title" title="下一篇">
-        <router-link :to="'/article/'+next._id">{{ next.title }}</router-link>
-      </div>
-    </div>
-    <div class="artcile-footer-mobile">
-      <div class="prev-mobile" v-if="prev.title" title="上一篇">
-        <router-link :to="'/article/'+prev._id">{{ prev.title }}</router-link>
-      </div>
-      <div class="next-mobile" v-if="next.title" title="下一篇">
-        <router-link :to="'/article/'+next._id">{{ next.title }}</router-link>
-      </div>
-    </div>
+    <article-footer :prev="prev" :next="next" />
     <back-top />
   </div>
 </template>
 
 <script>
+import ArticleHeader from "./comps/ArticleHeader";
+import ArticleFooter from "./comps/ArticleFooter";
 import BackTop from "@/components/backTop/BackTop";
 
 export default {
@@ -90,16 +62,9 @@ export default {
     }
   },
   components: {
+    ArticleHeader,
+    ArticleFooter,
     BackTop
-  },
-  filters: {
-    time(val) {
-      const filter = val.split(" ")[0];
-      const year = filter.split("-")[0].slice(2);
-      const month = filter.split("-")[1];
-      const day = filter.split("-")[2];
-      return `${year}/${month}/${day}`;
-    }
   }
 };
 </script>
@@ -109,144 +74,7 @@ export default {
   padding: 10px;
 }
 
-.article-container .article-header {
-  padding: 0px 10px;
-  margin-bottom: 40px;
-}
-
-.article-container .article-header .title {
-  text-align: center;
-  font-size: 40px;
-  letter-spacing: 2px;
-  margin-bottom: 30px;
-}
-
-.article-container .article-header .other {
-  border-bottom: 2px solid #9a9a9a;
-  padding-bottom: 10px;
-}
-
-.article-container .article-header .other ul {
-  list-style: none;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.article-container .article-header .other li {
-  margin: 0 15px;
-  color: #888;
-}
-
-.article-container .artcile-footer {
-  margin: 20px 20px 0;
-  position: relative;
-}
-
-.article-container .artcile-footer a {
-  color: #363636;
-}
-
-.article-container .artcile-footer .prev {
-  position: absolute;
-  top: 0;
-  left: 50px;
-  z-index: 99;
-}
-
-.article-container .artcile-footer .next {
-  position: absolute;
-  top: 0;
-  right: 50px;
-  z-index: 99;
-}
-
-.article-container .artcile-footer .prev::before {
-  content: "";
-  position: absolute;
-  left: -15px;
-  top: 5px;
-  width: 8px;
-  height: 8px;
-  border-top: 2px solid #363636;
-  border-left: 2px solid #363636;
-  transform: rotate(-45deg);
-}
-
-.article-container .artcile-footer .next::after {
-  content: "";
-  position: absolute;
-  right: -15px;
-  top: 5px;
-  width: 8px;
-  height: 8px;
-  border-top: 2px solid #363636;
-  border-right: 2px solid #363636;
-  transform: rotate(45deg);
-}
-
-.article-container .artcile-footer-mobile {
-  margin: 20px 30px 0;
-  display: none;
-}
-
-.article-container .artcile-footer-mobile a {
-  color: #363636;
-}
-
-.article-container .artcile-footer-mobile .prev-mobile {
-  margin-bottom: 8px;
-  position: relative;
-  padding-left: 3px;
-}
-
-.article-container .artcile-footer-mobile .next-mobile {
-  position: relative;
-  padding-left: 3px;
-}
-
-.article-container .artcile-footer-mobile .prev-mobile::before {
-  content: "";
-  width: 10px;
-  height: 10px;
-  transform: rotate(-45deg);
-  position: absolute;
-  top: 7px;
-  left: -18px;
-  border-top: 2px solid #000;
-  border-right: 2px solid #000;
-}
-
-.article-container .artcile-footer-mobile .next-mobile::before {
-  content: "";
-  width: 10px;
-  height: 10px;
-  transform: rotate(45deg);
-  position: absolute;
-  top: 1px;
-  left: -18px;
-  border-bottom: 2px solid #000;
-  border-right: 2px solid #000;
-}
-
 .v-note-wrapper {
   position: inherit;
-}
-
-@media screen and (max-width: 768px) {
-  .article-container .article-header .title {
-    text-align: left;
-    font-size: 20px;
-  }
-  .article-container .article-header .other li {
-    font-size: 14px;
-  }
-
-  .article-container .artcile-footer {
-    display: none;
-  }
-
-  .article-container .artcile-footer-mobile {
-    display: block;
-  }
 }
 </style>

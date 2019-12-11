@@ -40,7 +40,4 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  position: relative;
-}
 </style>

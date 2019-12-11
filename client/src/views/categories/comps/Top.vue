@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "List",
+  name: "Top",
   created() {
     this.fetch();
   },

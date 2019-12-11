@@ -5,6 +5,7 @@ import store from './store'
 import http from './http'
 import './plugins/element.js'
 import 'normalize.css'
+import './assets/css/iconfont/iconfont.css'
 
 // 富文本编辑器
 import mavonEditor from 'mavon-editor'

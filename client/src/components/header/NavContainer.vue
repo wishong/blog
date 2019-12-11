@@ -8,7 +8,7 @@
       :class="{'hide':isHide,'nav-bar':true,'complete':isComplete}"
       @showMobileList="showMobileList"
     />
-    <div :class="{mobileList:true,mobileUp:isHide}" v-show="isShow">
+    <div :class="{'mobile-list':true,'mobile-up':isHide}" v-show="isShow">
       <ul>
         <li v-for="item in navList" :key="item.path" @click="close()">
           <router-link
@@ -18,13 +18,13 @@
         </li>
       </ul>
     </div>
-    <h1>{{ des }}</h1>
-    <h1>{{ describe }}</h1>
+    <article-info />
   </div>
 </template>
 
 <script>
 import NavBar from "./NavBar";
+import ArticleInfo from "./ArticleInfo";
 
 export default {
   name: "NavContainer",
@@ -65,19 +65,14 @@ export default {
       this.isShow = false;
     }
   },
-  components: {
-    NavBar
-  },
   computed: {
     coverImgUrl() {
       return this.$store.state.articleInfo.coverImg;
-    },
-    describe() {
-      return this.$store.state.articleInfo.describe;
-    },
-    des() {
-      return this.$store.state.des;
     }
+  },
+  components: {
+    NavBar,
+    ArticleInfo
   }
 };
 </script>
@@ -113,7 +108,7 @@ export default {
   opacity: 1;
 }
 
-.mobileList {
+.mobile-list {
   margin-top: 50px;
   position: fixed;
   width: 100%;
@@ -121,56 +116,35 @@ export default {
   z-index: 999;
 }
 
-.mobileList ul {
+.mobile-list ul {
   background-color: #333;
 }
 
-.mobileList li {
+.mobile-list li {
   text-align: center;
   font-size: 18px;
   padding: 6px 0;
   letter-spacing: 2px;
 }
 
-.mobileList a {
+.mobile-list a {
   text-decoration: none;
   color: #f1f1f1;
 }
 
-.mobileList .mobile-actived {
+.mobile-list .mobile-actived {
   color: #9a9a9a;
 }
 
-.mobileUp {
+.mobile-up {
   transform: translateY(-50px);
   transition: 1s all ease;
-}
-
-h1 {
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  width: 100%;
-  text-align: center;
-  padding: 0 30px;
-}
-
-h1:first-of-type {
-  top: 40%;
-  font-size: 50px;
-  letter-spacing: 2px;
 }
 
 @media screen and (max-width: 768px) {
   .nav-container {
     height: 250px;
     background-attachment: scroll;
-  }
-  h1 {
-    font-size: 18px;
-    top: 70%;
   }
 }
 

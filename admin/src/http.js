@@ -25,11 +25,12 @@ http.interceptors.response.use(res => {
 }, err => {
   Vue.prototype.$message({
     type: 'error',
-    message: err.response.data.message
+    message: err.response.data.message || err.response.data.error
   })
   if (err.response.status == 401) {
     router.push('/login')
   }
+  hideLoading();
   return Promise.reject(err);
 })
 
