@@ -40,6 +40,7 @@ export default {
 main {
   margin: 30px 0;
 }
+
 main::after {
   content: "";
   display: block;

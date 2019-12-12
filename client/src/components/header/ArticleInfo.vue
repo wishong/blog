@@ -1,6 +1,6 @@
 <template>
   <div v-if="ArticleInfo._id">
-    <h1>{{ ArticleInfo.describe }}</h1>
+    <div class="describe">{{ ArticleInfo.describe }}</div>
     <div class="info">
       <div>CREATE:{{ ArticleInfo.createTime }}</div>
       <div>UPDATE:{{ ArticleInfo.updateTime }}</div>
@@ -25,16 +25,17 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  font-size: 50px;
+.describe {
   text-align: center;
+  font-size: 30px;
+  line-height: 40px;
   position: absolute;
-  top: 40%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: #fff;
   width: 100%;
-  padding: 0 3px;
+  padding: 0 50px;
 }
 
 .info {
@@ -74,8 +75,6 @@ h1 {
 }
 
 .info div:last-child:hover {
-  transform: scale(1.5);
-  transition: 1s all ease;
   text-decoration: underline;
 }
 
@@ -84,9 +83,9 @@ a {
 }
 
 @media screen and (max-width: 992px) {
-  h1 {
-    font-size: 30px;
-    top: 50%;
+  .describe {
+    font-size: 25px;
+    top: 47%;
   }
 
   .info {
@@ -100,6 +99,25 @@ a {
 
   .info div:first-child::before {
     width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .describe {
+    padding: 0 5px;
+    font-size: 20px;
+    line-height: 25px;
+    top: 50%;
+  }
+
+  .info {
+    font-size: 18px;
+    top: 82%;
+  }
+
+  .info div:last-child {
+    font-size: 20px;
+    margin-top: 15px;
   }
 }
 </style>

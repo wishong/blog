@@ -36,7 +36,7 @@ export default {
       this.categoriesList = res.data;
     },
     async fetchArticles() {
-      const res = await this.$http.get("/articles/home");
+      const res = await this.$http.get("/articles/aside");
       this.articlesList = res.data;
     }
   },

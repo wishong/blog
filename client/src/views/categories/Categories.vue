@@ -1,7 +1,7 @@
 <template>
   <div>
     <info-top />
-    <info-bottom :list="list" />
+    <info-bottom :articlesList="articlesList" @currentChange="currentChange" />
     <back-top />
   </div>
 </template>
@@ -18,13 +18,26 @@ export default {
   },
   data() {
     return {
-      list: []
+      articlesList: {
+        total: 0,
+        pageSize: 8,
+        currentPage: 1,
+        items: []
+      }
     };
   },
   methods: {
     async fetch() {
-      const res = await this.$http.get("/articles");
-      this.list = res.data;
+      const res = await this.$http.post("/articles", {
+        pageSize: this.articlesList.pageSize,
+        currentPage: this.articlesList.currentPage
+      });
+      this.articlesList.total = res.data.total;
+      this.articlesList.items = res.data.items;
+    },
+    currentChange(page) {
+      this.articlesList.currentPage = page;
+      this.fetch();
     }
   },
   components: {

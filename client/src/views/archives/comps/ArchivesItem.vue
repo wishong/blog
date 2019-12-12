@@ -6,7 +6,7 @@
           <div class="time" :title="item.createTime">{{ item.createTime | createTime}}</div>
           <div>
             <span>
-              <router-link :to="'/article/'+item._id">{{ item.title }} | </router-link>
+              <router-link :to="'/article/'+item._id">{{ item.title }} |</router-link>
             </span>
             <span>
               <router-link :to="'/categories/'+item.categoryId.name">{{ item.categoryId.name }}</router-link>
@@ -37,8 +37,11 @@ export default {
   },
   filters: {
     createTime(val) {
-      const month = val.split(" ")[0].split("-")[1];
-      const day = val.split(" ")[0].split("-")[2];
+      const add = value => {
+        return value >= 10 ? value : "0" + value;
+      };
+      const month = add(val.split(" ")[0].split("-")[1]);
+      const day = add(val.split(" ")[0].split("-")[2]);
       return `${month}-${day}`;
     }
   }

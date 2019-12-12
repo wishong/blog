@@ -4,9 +4,9 @@
       <slot name="title">ARTICLES</slot>
     </span>
     <div class="info-container">
-      <h2 v-if="list.length === 0">暂时没有</h2>
+      <h2 v-if="articlesList.items.length === 0">暂时没有</h2>
       <ul>
-        <li v-for="(item,i) in list" :key="item._id">
+        <li v-for="(item,i) in articlesList.items" :key="item._id">
           <router-link :to="'/article/'+item._id">
             <div class="container" @mouseover="isHover(i)" @mouseout="currentIndex = -1">
               <img :src="item.coverImg" />
@@ -26,10 +26,20 @@
         </li>
       </ul>
     </div>
+    <pagination
+      class="pagination"
+      :hide-on-single-page="true"
+      :total="articlesList.total"
+      :page-size="articlesList.pageSize"
+      :current-page="articlesList.currentPage"
+      @currentChange="currentChange"
+    />
   </div>
 </template>
 
 <script>
+import Pagination from "@/components/pagination/Pagination";
+
 export default {
   name: "Bottom",
   data() {
@@ -38,21 +48,26 @@ export default {
     };
   },
   props: {
-    list: {
-      type: Array
-    }
+    articlesList: Object
   },
   methods: {
     isHover(i) {
       this.currentIndex = i;
+    },
+    currentChange(page) {
+      this.$emit("currentChange", page);
     }
+  },
+  components: {
+    Pagination
   }
 };
 </script>
 
 <style scoped>
 .bottom-container {
-  margin: 20px;
+  margin: 20px 20px 60px;
+  position: relative;
 }
 
 .info-container {
@@ -119,6 +134,13 @@ export default {
   font-size: 16px;
 }
 
+.pagination {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%) scale(1.2);
+}
+
 span {
   position: relative;
   font-size: 30px;
@@ -172,7 +194,7 @@ h2 {
 
 @media screen and (max-width: 768px) {
   .bottom-container {
-    margin: 10px;
+    margin: 10px 10px 60px;
   }
 
   .container {
