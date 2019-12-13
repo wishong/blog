@@ -52,6 +52,7 @@ export default {
 .archives {
   padding-top: 20px;
   margin: 20px;
+  margin-right: 25vw;
 }
 
 .archives .archives-item {
@@ -111,5 +112,14 @@ ul {
 
 a {
   color: #363636;
+}
+
+@media screen and (max-width: 768px) {
+  .archives .archives-item span:first-child {
+    font-size: 15px;
+  }
+  .archives .archives-item span:last-child a {
+    font-size: 13px;
+  }
 }
 </style>

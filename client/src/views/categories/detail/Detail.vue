@@ -29,7 +29,7 @@ export default {
   methods: {
     async fetch() {
       const res = await this.$http.post(
-        `/articles/${this.$route.params.name}`,
+        `/articles/category/${this.$route.params.name}`,
         {
           pageSize: this.articlesList.pageSize,
           currentPage: this.articlesList.currentPage

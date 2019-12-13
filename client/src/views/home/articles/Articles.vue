@@ -22,7 +22,7 @@ export default {
     return {
       articlesList: {
         total: 0,
-        pageSize: 5,
+        pageSize: 4,
         currentPage: 1,
         items: []
       },

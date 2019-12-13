@@ -7,6 +7,7 @@ const Categories = () => import('@/views/categories/Categories.vue');
 const CategoriesDetail = () => import('../views/categories/detail/Detail.vue');
 const Archives = () => import('@/views/archives/Archives.vue');
 const About = () => import('@/views/about/About.vue');
+const Search = () => import('@/views/search/Search.vue');
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,7 @@ const routes = [
   { path: '/categories', component: Categories },
   { path: '/categories/:name', component: CategoriesDetail },
   { path: '/archives', component: Archives },
+  { path: '/search', component: Search },
   { path: '/about', component: About },
 ]
 

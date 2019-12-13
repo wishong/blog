@@ -29,6 +29,7 @@ export default {
         { title: "首页", path: "/home" },
         { title: "分类", path: "/categories" },
         { title: "归档", path: "/archives" },
+        { title: "搜索", path: "/search" },
         { title: "关于", path: "/about" }
       ],
       isShow: ""

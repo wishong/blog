@@ -21,7 +21,7 @@ export default {
 
 .article-header .title {
   text-align: center;
-  font-size: 40px;
+  font-size: 35px;
   letter-spacing: 2px;
   margin-bottom: 15px;
   padding-bottom: 5px;

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(item,i) in articlesList.items" :key="item._id" class="articles-item-container">
-      <div class="top" />
+      <hr />
       <h2 class="header">
         <router-link :to="'/article/'+item.id">{{ item.title }}</router-link>
       </h2>
@@ -79,11 +79,6 @@ export default {
   align-items: center;
 }
 
-.articles-item-container .top {
-  border-top: 3px solid #888;
-  width: 80%;
-}
-
 .articles-item-container .header {
   padding: 3px 20px;
   font-size: 30px;
@@ -128,7 +123,7 @@ export default {
   text-align: center;
   line-height: 55px;
   border-radius: 50%;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .articles-item-container .coverImg .front .time {
@@ -175,7 +170,7 @@ export default {
   text-align: center;
   color: #fff;
   margin-top: 80px;
-  margin-bottom: 100px;
+  margin-bottom: 65px;
   padding: 0 8px;
 }
 
@@ -195,7 +190,7 @@ export default {
 }
 
 .articles-item-container .describe {
-  margin: 30px 0;
+  margin: 20px 0;
   width: 60%;
   font-size: 20px;
   line-height: 30px;
@@ -203,6 +198,11 @@ export default {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
+}
+
+hr {
+  width: 80%;
+  border-top: 3px dashed #ccc;
 }
 
 button {
@@ -215,7 +215,7 @@ button {
   color: #363636;
   outline: none;
   font-size: 18px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 button:hover {
@@ -224,8 +224,8 @@ button:hover {
 }
 
 @media screen and (max-width: 992px) {
-  .articles-item-container .top {
-    width: 100%;
+  hr {
+    width: 90%;
   }
 
   .articles-item-container .coverImg {
@@ -249,7 +249,7 @@ button:hover {
 
   .articles-item-container .coverImg {
     width: 100%;
-    height: 300px;
+    height: 230px;
   }
 
   .articles-item-container .describe {
@@ -262,6 +262,7 @@ button:hover {
   .articles-item-container .coverImg .back .back-content h1 {
     font-size: 20px;
     margin-bottom: 45px;
+    margin-top: 20px;
   }
 
   .articles-item-container .coverImg .back .back-content h2 {
