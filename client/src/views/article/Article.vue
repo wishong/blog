@@ -12,6 +12,7 @@
     ></mavon-editor>
     <article-footer :prev="prev" :next="next" />
     <back-top />
+    <comment :id="$route.params.id" />
   </div>
 </template>
 
@@ -19,6 +20,7 @@
 import ArticleHeader from "./comps/ArticleHeader";
 import ArticleFooter from "./comps/ArticleFooter";
 import BackTop from "@/components/backTop/BackTop";
+import Comment from "@/components/comment/Comment";
 
 export default {
   name: "Article",
@@ -64,7 +66,8 @@ export default {
   components: {
     ArticleHeader,
     ArticleFooter,
-    BackTop
+    BackTop,
+    Comment
   }
 };
 </script>

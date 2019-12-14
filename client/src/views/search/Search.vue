@@ -12,9 +12,9 @@
     </div>
     <hr />
     <div class="search-result" v-show="init">
-      <pre v-show="list.length !== 0"><p>包含<span>"{{ oldData }}"</span>的文章</p></pre>
+      <pre v-show="list.length !== 0"><p>包含<span>"{{ oldData }}"</span>的文章：</p></pre>
       <pre v-show="list.length === 0"><p>没有搜索到包含<span>"{{ oldData }}"</span>的文章</p></pre>
-      <ul>
+      <ol>
         <li v-for="(item,i) in list" :key="item._id">
           <div class="article">
             <router-link :to="'/article/'+item._id">
@@ -23,12 +23,15 @@
             <div class="describe" v-html="ruleDescribe(i)">{{ item.describe }}</div>
           </div>
         </li>
-      </ul>
+      </ol>
     </div>
+    <back-top />
   </div>
 </template>
 
 <script>
+import BackTop from "@/components/backTop/BackTop";
+
 export default {
   name: "Search",
   data() {
@@ -68,7 +71,7 @@ export default {
             '<span style="color:#f16f6f;font-weight:bold;">' +
             this.oldData +
             "</span>";
-          // 开始替换 
+          // 开始替换
           titleString = titleString.replace(replaceReg, replaceString);
         }
         return titleString;
@@ -85,20 +88,25 @@ export default {
           let replaceReg = new RegExp(this.oldData, "g");
           // 高亮替换v-html值
           let replaceString =
-            '<span style="color:#f16f6f;font-weight:bold;">' + this.oldData + "</span>";
+            '<span style="color:#f16f6f;font-weight:bold;">' +
+            this.oldData +
+            "</span>";
           // 开始替换
           describeString = describeString.replace(replaceReg, replaceString);
         }
         return describeString;
       };
     }
+  },
+  components: {
+    BackTop
   }
 };
 </script>
 
 <style scoped>
 .search-container {
-  height: 500px;
+  min-height: 350px;
   margin: 20px;
   display: flex;
   flex-direction: column;
@@ -118,17 +126,17 @@ export default {
 }
 
 .search-container .search-result {
-  border: 1px solid #ccc;
   width: 60%;
 }
 
 .search-container .search-result span {
   color: #f16f6f;
+  white-space: pre-wrap;
 }
 
 .search-container .search-result .article {
-  border: 1px solid #000;
-  padding: 5px 10px;
+  padding: 8px 0px 3px;
+  border-top: 2px solid #ddd;
 }
 
 .search-container .search-result .article h3 {
@@ -160,12 +168,11 @@ input:hover {
   box-shadow: 1px 2px 2px #ccc;
 }
 
-ul {
-  list-style: none;
-  margin-top: 30px;
+ol {
+  margin: 20px 20px 0;
 }
 
-ul li {
+ol li {
   margin: 10px 0;
 }
 
@@ -197,14 +204,29 @@ h3:hover {
   text-shadow: 1px 0 1px #ccc;
 }
 
+pre {
+  width: 100%;
+}
+
 @media screen and (max-width: 768px) {
+  .search-container .search-result {
+    width: 90%;
+  }
+
   hr {
     width: 90%;
-    margin: 40px 0;
+    margin: 30px 0 20px;
   }
 
   input {
     width: 200px;
+  }
+  p {
+    font-size: 20px;
+  }
+
+  h3 {
+    font-size: 18px;
   }
 }
 </style>

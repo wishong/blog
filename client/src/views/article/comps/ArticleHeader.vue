@@ -25,7 +25,7 @@ export default {
   letter-spacing: 2px;
   margin-bottom: 15px;
   padding-bottom: 5px;
-  border-bottom: 2px solid #888;
+  border-bottom: 2px solid #ccc;
 }
 
 @media screen and (max-width: 768px) {

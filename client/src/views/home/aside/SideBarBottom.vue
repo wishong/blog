@@ -7,9 +7,9 @@
           <router-link :to="'/categories/'+item">{{ item }}</router-link>
         </div>
       </div>
-      <span class="el-icon-reading">&nbsp;最近文章</span>
+      <span class="el-icon-edit">&nbsp;最近编辑</span>
       <ul>
-        <li v-for="item in articlesList" :key="item._id" :title="item.createTime | createTime">
+        <li v-for="item in articlesList" :key="item._id" :title="item.updateTime">
           <router-link :to="'/article/'+item._id">{{ item.title }}</router-link>
         </li>
       </ul>
@@ -39,11 +39,6 @@ export default {
       const res = await this.$http.get("/articles/aside");
       this.articlesList = res.data;
     }
-  },
-  filters: {
-    createTime(val) {
-      return `创建时间: ${val.split(" ")[0]}`;
-    }
   }
 };
 </script>
@@ -61,15 +56,15 @@ export default {
 
 .tagList .tag {
   margin: 5px 7px;
-  padding: 8px 16px;
-  border: 1px solid #666;
-  border-radius: 50px/50px;
+  padding: 7px 10px;
+  border: 1px solid #888;
+  border-radius: 12px;
 }
 
 .tagList .tag:hover {
   transform: scale(1.1);
-  transition: 0.5s all ease;
-  box-shadow: 1px 1px 2px #666;
+  transition: 0.3s all ease;
+  box-shadow: 1px 1px 2px #888;
 }
 
 a {

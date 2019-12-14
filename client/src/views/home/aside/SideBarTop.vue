@@ -2,7 +2,7 @@
   <div>
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span>简介</span>
+        <span>wish</span>
       </div>
       <img src="@/assets/img/wish.jpg" />
     </el-card>
