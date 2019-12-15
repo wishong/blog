@@ -21,10 +21,20 @@ http.interceptors.response.use(res => {
   return res;
 }, err => {
   hideLoading();
+
+  // 请求超时
+  if (err && err.code == 'ECONNABORTED' && err.message.includes('timeout')) {
+    Vue.prototype.$toast('请求超时');
+  }
+
+  // 请求错误
   if (err && err.response.status === 500) {
+
     Vue.prototype.$toast(err.response.data.message);
   }
   return Promise.reject(err);
 })
+
+
 
 export default http;
