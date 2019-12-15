@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { fetchArticles } from "@/network/home";
 import ArticlesItem from "./ArticlesItem";
 import Pagination from "@/components/pagination/Pagination";
 
@@ -36,13 +37,14 @@ export default {
     clearInterval(this.timer);
   },
   methods: {
-    async fetch() {
-      const res = await this.$http.post("/articles", {
-        pageSize: this.articlesList.pageSize,
-        currentPage: this.articlesList.currentPage
+    fetch() {
+      fetchArticles(
+        this.articlesList.pageSize,
+        this.articlesList.currentPage
+      ).then(res => {
+        this.articlesList.items = res.data.items;
+        this.articlesList.total = res.data.total;
       });
-      this.articlesList.items = res.data.items;
-      this.articlesList.total = res.data.total;
     },
     currentChange(page) {
       this.articlesList.currentPage = page;

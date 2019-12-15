@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { fetchArticles } from "@/network/category";
 import InfoTop from "./comps/Top";
 import InfoBottom from "./comps/Bottom";
 import BackTop from "@/components/backTop/BackTop";
@@ -27,13 +28,14 @@ export default {
     };
   },
   methods: {
-    async fetch() {
-      const res = await this.$http.post("/articles", {
-        pageSize: this.articlesList.pageSize,
-        currentPage: this.articlesList.currentPage
+    fetch() {
+      fetchArticles(
+        this.articlesList.pageSize,
+        this.articlesList.currentPage
+      ).then(res => {
+        this.articlesList.total = res.data.total;
+        this.articlesList.items = res.data.items;
       });
-      this.articlesList.total = res.data.total;
-      this.articlesList.items = res.data.items;
     },
     currentChange(page) {
       this.articlesList.currentPage = page;

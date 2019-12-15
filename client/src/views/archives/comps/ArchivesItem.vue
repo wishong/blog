@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { fetchArchives } from "@/network/archive";
+
 export default {
   name: "ArchivesItem",
   created() {
@@ -30,9 +32,10 @@ export default {
     };
   },
   methods: {
-    async fetch() {
-      const res = await this.$http.get("/articles");
-      this.archives = res.data.reverse();
+    fetch() {
+      fetchArchives().then(res => {
+        this.archives = res.data;
+      });
     }
   },
   filters: {

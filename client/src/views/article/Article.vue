@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { fetchInfo } from "@/network/article";
 import ArticleHeader from "./comps/ArticleHeader";
 import ArticleFooter from "./comps/ArticleFooter";
 import BackTop from "@/components/backTop/BackTop";
@@ -43,12 +44,13 @@ export default {
     };
   },
   methods: {
-    async fetch() {
-      const res = await this.$http.get(`/articles/detail/${this.id}`);
-      this.articleInfo = res.data.item;
-      this.prev = res.data.prev[0] || {};
-      this.next = res.data.next[0] || {};
-      this.$store.commit("getArticleInfo", res.data.item);
+    fetch() {
+      fetchInfo(this.id).then(res => {
+        this.articleInfo = res.data.item;
+        this.prev = res.data.prev[0] || {};
+        this.next = res.data.next[0] || {};
+        this.$store.commit("getArticleInfo", res.data.item);
+      });
     }
   },
   computed: {

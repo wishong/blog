@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { fetchCategories } from "@/network/category";
+
 export default {
   name: "Top",
   created() {
@@ -29,9 +31,10 @@ export default {
     };
   },
   methods: {
-    async fetch() {
-      const res = await this.$http.get("/categories");
-      this.list = res.data;
+    fetch() {
+      fetchCategories().then(res => {
+        this.list = res.data;
+      });
     }
   }
 };

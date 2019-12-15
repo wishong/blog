@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { fetchCategoryArticles } from "@/network/category";
 import DetailTop from "../comps/Top";
 import DetailBottom from "../comps/Bottom";
 
@@ -27,16 +28,15 @@ export default {
     };
   },
   methods: {
-    async fetch() {
-      const res = await this.$http.post(
-        `/articles/category/${this.$route.params.name}`,
-        {
-          pageSize: this.articlesList.pageSize,
-          currentPage: this.articlesList.currentPage
-        }
-      );
-      this.articlesList.total = res.data.total;
-      this.articlesList.items = res.data.list;
+    fetch() {
+      fetchCategoryArticles(
+        this.$route.params.name,
+        this.articlesList.pageSize,
+        this.articlesList.currentPage
+      ).then(res => {
+        this.articlesList.total = res.data.total;
+        this.articlesList.items = res.data.list;
+      });
     },
     currentChange(page) {
       this.articlesList.currentPage = page;

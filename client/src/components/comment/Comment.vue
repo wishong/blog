@@ -1,7 +1,7 @@
 <template>
   <div class="comment-container">
     <h2>评论</h2>
-    <form method="POST" @submit.prevent="postComment" class="form">
+    <form method="POST" @submit.prevent="post" class="form">
       <div class="info">
         <input type="text" placeholder="name.." v-model.trim="commentInfo.commenter" />
         <input type="email" placeholder="(选填)email.. " v-model.trim="commentInfo.email" />
@@ -14,7 +14,10 @@
       <li v-for="(item,i) in list" :key="item._id">
         <div class="commentItem">
           <div class="top">
-            <span :title="'评论人:'+item.commenter">{{ item.commenter }}</span>
+            <span :title="'评论人:'+item.commenter">
+              <span class="el-icon-user"></span>
+              {{ item.commenter }}
+            </span>
             <span>第{{ list.length - i}}楼</span>
           </div>
           <p class="bottom">{{ item.comment }}</p>
@@ -26,6 +29,8 @@
 </template>
 
 <script>
+import { fetchComment, postComment } from "@/network/comment";
+
 export default {
   name: "Comment",
   data() {
@@ -46,21 +51,23 @@ export default {
     this.fetch();
   },
   methods: {
-    async fetch() {
-      const res = await this.$http.get(`/comments/${this.id}`);
-      this.list = res.data;
+    fetch() {
+      fetchComment(this.id).then(res => {
+        this.list = res.data;
+      });
     },
-    async postComment() {
+    post() {
       if (this.commentInfo.commenter === "") {
         return this.$toast("昵称不能为空");
       }
       if (this.commentInfo.comment === "") {
         return this.$toast("评论内容不能为空");
       }
-      const res = await this.$http.post("/comments", this.commentInfo);
-      this.clear();
-      this.fetch();
-      return this.$toast("评论成功");
+      postComment(this.commentInfo).then(res => {
+        this.clear();
+        this.fetch();
+        return this.$toast("评论成功");
+      });
     },
     clear() {
       this.commentInfo.commenter = "";
@@ -127,7 +134,7 @@ export default {
 }
 
 .comment-container .commentItem:hover {
-  border: 2px solid #666;
+  border: 2px solid #888;
 }
 
 .comment-container .commentItem .top {

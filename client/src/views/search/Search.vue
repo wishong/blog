@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { fetchSearch } from "@/network/search";
 import BackTop from "@/components/backTop/BackTop";
 
 export default {
@@ -43,17 +44,16 @@ export default {
     };
   },
   methods: {
-    async fetch(data) {
+    fetch(data) {
       if (data === "") {
         this.init = false;
         return this.$toast("不能为空");
       }
-      const res = await this.$http.post("/articles/search", {
-        data: this.data
+      fetchSearch(this.data).then(res => {
+        this.init = true;
+        this.list = res.data;
+        this.oldData = this.data;
       });
-      this.init = true;
-      this.list = res.data;
-      this.oldData = this.data;
     }
   },
   computed: {

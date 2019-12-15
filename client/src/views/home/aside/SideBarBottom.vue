@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { fetchCategories, fetchEditArticles } from "@/network/home";
+
 export default {
   name: "SideBarBottom",
   data() {
@@ -27,17 +29,19 @@ export default {
     };
   },
   created() {
-    this.fetchCategories();
-    this.fetchArticles();
+    this.categories();
+    this.articles();
   },
   methods: {
-    async fetchCategories() {
-      const res = await this.$http.get("/categories");
-      this.categoriesList = res.data;
+    categories() {
+      fetchCategories().then(res => {
+        this.categoriesList = res.data;
+      });
     },
-    async fetchArticles() {
-      const res = await this.$http.get("/articles/aside");
-      this.articlesList = res.data;
+    articles() {
+      fetchEditArticles().then(res => {
+        this.articlesList = res.data;
+      });
     }
   }
 };
