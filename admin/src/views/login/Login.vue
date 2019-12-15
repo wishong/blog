@@ -2,8 +2,9 @@
   <div>
     <vue-particles class="bg" :particlesNumber="100"></vue-particles>
     <div class="login-container">
+      <h1>后台管理</h1>
       <el-card header="登录" class="login-card">
-        <el-form @submit.native.prevent="login">
+        <el-form @submit.native.prevent="userLogin">
           <el-form-item label="用户名">
             <el-input v-model="user.username" placeholder="用户名"></el-input>
           </el-form-item>
@@ -25,6 +26,8 @@
 </template>
 
 <script>
+import { login } from "../../network/login";
+
 export default {
   name: "Login",
   data() {
@@ -33,17 +36,15 @@ export default {
     };
   },
   methods: {
-    async login() {
-      const res = await this.$http.post(
-        "http://localhost:3000/admin/login",
-        this.user
-      );
-      sessionStorage.setItem("token", res.data.token);
-      sessionStorage.setItem("username", JSON.stringify(res.data.username));
-      this.$router.push("/");
-      this.$message({
-        type: "success",
-        message: `欢迎您，${res.data.username}`
+    userLogin() {
+      login(this.user).then(res => {
+        sessionStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("username", JSON.stringify(res.data.username));
+        this.$router.push("/");
+        this.$message({
+          type: "success",
+          message: `欢迎您，${res.data.username}`
+        });
       });
     }
   }
@@ -69,5 +70,10 @@ export default {
   height: 99%;
   top: 0;
   background: linear-gradient(to bottom, #065ea1 0%, #90b1df 100%);
+}
+
+h1 {
+  text-align: center;
+  color: #fff;
 }
 </style>

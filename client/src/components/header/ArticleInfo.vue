@@ -18,7 +18,7 @@ export default {
   name: "ArticleInfo",
   computed: {
     ArticleInfo() {
-      return this.$store.state.articleInfo;
+      this.$store.state.articleInfo;
     }
   }
 };

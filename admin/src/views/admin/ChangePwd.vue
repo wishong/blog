@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { editAdmins } from "../../network/admin";
+
 export default {
   name: "ChangePwd",
   data() {
@@ -85,19 +87,17 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          const res = this.$http
-            .put(`/admins/changePwd/${this.username}`, this.admin)
-            .then(res => {
-              this.$message({
-                type: "success",
-                message: "修改成功,2秒后请重新登录",
-                duration: 2000
-              });
-              setTimeout(() => {
-                this.$router.push("/login");
-                sessionStorage.clear();
-              }, 2000);
+          editAdmins(this.username, this.admin).then(res => {
+            this.$message({
+              type: "success",
+              message: "修改成功,2秒后请重新登录",
+              duration: 2000
             });
+            setTimeout(() => {
+              this.$router.push("/login");
+              sessionStorage.clear();
+            }, 2000);
+          });
         } else {
           this.$message({
             type: "error",

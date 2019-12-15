@@ -38,7 +38,6 @@ export default {
       commentInfo: {
         commenter: "",
         comment: "",
-        email: "",
         articleId: this.id
       },
       list: []
@@ -58,15 +57,15 @@ export default {
     },
     post() {
       if (this.commentInfo.commenter === "") {
-        return this.$toast("昵称不能为空");
+        this.$toast("昵称不能为空");
       }
       if (this.commentInfo.comment === "") {
-        return this.$toast("评论内容不能为空");
+        this.$toast("评论内容不能为空");
       }
       postComment(this.commentInfo).then(res => {
         this.clear();
         this.fetch();
-        return this.$toast("评论成功");
+        this.$toast("评论成功");
       });
     },
     clear() {

@@ -8,6 +8,7 @@ const CategoriesDetail = () => import('../views/categories/detail/Detail.vue');
 const Archives = () => import('@/views/archives/Archives.vue');
 const About = () => import('@/views/about/About.vue');
 const Search = () => import('@/views/search/Search.vue');
+const notFound = () => import('../components/notFound/notFound.vue');
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,8 @@ const routes = [
   { path: '/archives', component: Archives },
   { path: '/search', component: Search },
   { path: '/about', component: About },
+  { path: "/404", component: notFound },
+  { path: "*", redirect: "/404" }
 ]
 
 const router = new VueRouter({

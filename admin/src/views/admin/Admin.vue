@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>管理员列表</h3>
-    <el-table :data="items" ref="table" v-loading="loading">
+    <el-table :data="items" ref="table">
       <el-table-column prop="_id" label="ID"></el-table-column>
       <el-table-column prop="username" label="管理员名称"></el-table-column>
       <el-table-column fixed="right" label="操作">
@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { fetchAdmins, deleteAdmins } from "../../network/admin";
+
 export default {
   name: "Admin",
   created() {
@@ -21,33 +23,33 @@ export default {
   },
   data() {
     return {
-      items: [],
-      loading: true
+      items: []
     };
   },
   methods: {
-    async fetch() {
-      const res = await this.$http.get("/admins");
-      this.items = res.data;
-      this.loading = false;
+    fetch() {
+      fetchAdmins().then(res => {
+        this.items = res.data;
+      });
     },
-    async remove(row) {
+    remove(row) {
       if (row.username === "admin") {
-        return this.$message.error("此用户无法删除");
+        this.$message.error("此用户无法删除");
       }
       this.$confirm(`是否要删除 "${row.username}" 管理员?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
-        .then(async () => {
-          await this.$http.delete(`/admins/delete/${row._id}`);
-          this.$message({
-            type: "success",
-            message: "删除成功!",
-            duration: 1000
+        .then(() => {
+          deleteAdmins(row._id).then(res => {
+            this.$message({
+              type: "success",
+              message: "删除成功!",
+              duration: 1000
+            });
+            this.fetch();
           });
-          this.fetch();
         })
         .catch(() => {
           this.$message({
@@ -56,9 +58,6 @@ export default {
             duration: 1000
           });
         });
-    },
-    test() {
-      console.log(1);
     }
   }
 };

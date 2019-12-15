@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { postAdmins } from "../../network/admin";
+
 export default {
   name: "AdminEdit",
   data() {
@@ -83,13 +85,13 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          const res = this.$http.post("/admins", this.admin).then(res => {
+          postAdmins(this.admin).then(res => {
+            this.$router.push("/admin");
             this.$message({
               type: "success",
               message: "创建成功",
               duration: 1000
             });
-            this.$router.push("/admin");
           });
         } else {
           this.$message({
