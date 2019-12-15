@@ -21,6 +21,7 @@ http.interceptors.response.use(res => {
   return res;
 }, err => {
   hideLoading();
+  
   if (err && err.response.status === 500) {
     Vue.prototype.$toast(err.response.data.message);
   }
