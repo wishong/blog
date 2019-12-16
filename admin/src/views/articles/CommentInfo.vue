@@ -1,12 +1,13 @@
 <template>
-  <div class="container">
-    <h3>分类列表</h3>
-    <el-table :data="items.categoris">
-      <el-table-column prop="_id" label="ID"></el-table-column>
-      <el-table-column prop="name" label="分类名称"></el-table-column>
+  <div>
+    <h3>评论列表</h3>
+    <el-table :data="items.comments">
+      <el-table-column prop="commenter" label="评论人"></el-table-column>
+      <el-table-column prop="comment" label="内容"></el-table-column>
+      <el-table-column prop="email" label="邮箱"></el-table-column>
+      <el-table-column prop="commentTime" label="评论时间" sortable></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template v-slot="scope">
-          <el-button type="primary" icon="el-icon-edit" size="small" @click="edit(scope.row)">编辑</el-button>
           <el-button type="primary" icon="el-icon-delete" size="small" @click="remove(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -22,18 +23,18 @@
 </template>
 
 <script>
-import { fetchCategories, deleteCategory } from "@/network/category";
+import { fetchComments, deleteComment } from "@/network/article";
 import Pagination from "@/components/pagination/Pagination";
 
 export default {
-  name: "Category",
+  name: "CommentInfo",
   created() {
     this.fetch();
   },
   data() {
     return {
       items: {
-        categoris: [],
+        comments: [],
         total: 0,
         pageSize: 8,
         currentPage: 1
@@ -42,27 +43,23 @@ export default {
   },
   methods: {
     fetch() {
-      fetchCategories(this.items.pageSize, this.items.currentPage).then(res => {
+      fetchComments(
+        this.$route.params.id,
+        this.items.pageSize,
+        this.items.currentPage
+      ).then(res => {
+        this.items.comments = res.data.list;
         this.items.total = res.data.total;
-        this.items.categoris = res.data.items;
       });
     },
-    currentChange(page) {
-      this.items.currentPage = page;
-      this.fetch();
-    },
-    edit(row) {
-      this.$router.push(`/categories/edit/${row._id}`);
-    },
     remove(row) {
-      this.$confirm(`是否要删除 "${row.name}" 分类?`, "提示", {
+      this.$confirm(`是否要删除 "${row.commenter}" 的评论?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(() => {
-          deleteCategory(row._id).then(res => {
-            this.items.currentPage = 1;
+          deleteComment(row._id).then(res => {
             this.fetch();
             this.$message({
               type: "success",
@@ -78,6 +75,10 @@ export default {
             duration: 1000
           });
         });
+    },
+    currentChange(page) {
+      this.items.currentPage = page;
+      this.fetch();
     }
   },
   components: {
@@ -89,7 +90,7 @@ export default {
 <style scoped>
 .pagination {
   position: fixed;
-  bottom: 5%;
+  bottom: 3%;
   left: 50%;
 }
 </style>

@@ -20,10 +20,13 @@
 </template>
 
 <script>
-import { editAdmins } from "../../network/admin";
+import { editAdmins } from "@/network/admin";
 
 export default {
   name: "ChangePwd",
+  created() {
+    this.username = this.$route.params.username;
+  },
   data() {
     const checkOld = (rule, value, callback) => {
       if (value === "") {
@@ -110,9 +113,6 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
-  },
-  created() {
-    this.username = this.$route.params.username;
   }
 };
 </script>

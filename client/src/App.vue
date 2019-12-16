@@ -1,10 +1,10 @@
 <template>
-  <div id="app" :key="key">
+  <div id="app">
     <header>
       <nav-container />
     </header>
     <main>
-      <router-view />
+      <router-view :key="$route.path" />
     </main>
     <footer>
       <footer-container />
@@ -21,16 +21,6 @@ export default {
   components: {
     NavContainer,
     FooterContainer
-  },
-  data() {
-    return {
-      key: 1
-    };
-  },
-  watch: {
-    $route(to, from) {
-      this.key = new Date().getTime();
-    }
   }
 };
 </script>

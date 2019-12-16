@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { postAdmins } from "../../network/admin";
+import { postAdmins } from "@/network/admin";
 
 export default {
   name: "AdminEdit",

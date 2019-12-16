@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { fetchComment, postComment } from "@/network/comment";
+import { fetchComments, postComment } from "@/network/comment";
 
 export default {
   name: "Comment",
@@ -51,16 +51,16 @@ export default {
   },
   methods: {
     fetch() {
-      fetchComment(this.id).then(res => {
+      fetchComments(this.id).then(res => {
         this.list = res.data;
       });
     },
     post() {
       if (this.commentInfo.commenter === "") {
-        this.$toast("昵称不能为空");
+        return this.$toast("昵称不能为空");
       }
       if (this.commentInfo.comment === "") {
-        this.$toast("评论内容不能为空");
+        return this.$toast("评论内容不能为空");
       }
       postComment(this.commentInfo).then(res => {
         this.clear();

@@ -1,13 +1,13 @@
 <template>
-  <div v-if="ArticleInfo._id">
-    <div class="describe">{{ ArticleInfo.describe }}</div>
+  <div v-if="articleInfo._id">
+    <div class="describe">{{ articleInfo.describe }}</div>
     <div class="info">
-      <div>CREATE:{{ ArticleInfo.createTime }}</div>
-      <div>UPDATE:{{ ArticleInfo.updateTime }}</div>
+      <div>CREATE:{{ articleInfo.createTime }}</div>
+      <div>UPDATE:{{ articleInfo.updateTime }}</div>
       <div class="gategory">
         <router-link
-          :to="'/categories/'+ArticleInfo.categoryId.name"
-        >#{{ ArticleInfo.categoryId.name }}</router-link>
+          :to="'/categories/'+articleInfo.categoryId.name"
+        >#{{ articleInfo.categoryId.name }}</router-link>
       </div>
     </div>
   </div>
@@ -17,8 +17,8 @@
 export default {
   name: "ArticleInfo",
   computed: {
-    ArticleInfo() {
-      this.$store.state.articleInfo;
+    articleInfo() {
+      return this.$store.state.articleInfo;
     }
   }
 };

@@ -45,6 +45,13 @@
 </template>
 
 <script>
+import {
+  fetchArticle,
+  fetchCategories,
+  postArticle,
+  editArticle
+} from "@/network/article";
+
 export default {
   name: "ArticlesEdit",
   data() {
@@ -65,26 +72,36 @@ export default {
     this.id && this.fetch();
   },
   methods: {
-    async categories() {
-      const res = await this.$http.get("/categories/list");
-      this.parentCategories = res.data;
-    },
-    async save() {
-      if (this.id) {
-        await this.$http.put(`/articles/${this.id}`, this.article);
-      } else {
-        await this.$http.post("/articles", this.article);
-      }
-      this.$router.push("/articles");
-      this.$message({
-        type: "success",
-        message: "保存成功",
-        duration: 1000
+    categories() {
+      fetchCategories().then(res => {
+        this.parentCategories = res.data;
       });
     },
-    async fetch() {
-      const res = await this.$http.get(`/articles/${this.id}`);
-      this.article = res.data;
+    save() {
+      if (this.id) {
+        editArticle(this.id, this.article).then(res => {
+          this.$router.push("/articles");
+          this.$message({
+            type: "success",
+            message: "修改成功",
+            duration: 1000
+          });
+        });
+      } else {
+        postArticle(this.article).then(res => {
+          this.$router.push("/articles");
+          this.$message({
+            type: "success",
+            message: "创建成功",
+            duration: 1000
+          });
+        });
+      }
+    },
+    fetch() {
+      fetchArticle(this.id).then(res => {
+        this.article = res.data;
+      });
     },
     handleAvatarSuccess(res) {
       this.$set(this.article, "coverImg", this.imageUrl);
@@ -102,10 +119,8 @@ export default {
       formdata.append("key", keyname);
       const img = await this.$http.post(this.domain, formdata, config);
       this.imageUrl = "http://" + this.qiniuaddr + "/" + img.data.key;
-      console.log(this.imageUrl);
       this.$refs.md.$img2Url(pos, this.imageUrl);
     },
-    // 七牛云上传图片
     async upqiniu(req) {
       const config = {
         headers: { "Content-Type": "multipart/form-data" }
@@ -144,6 +159,7 @@ export default {
 .editor {
   min-height: 440px;
 }
+
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
@@ -151,9 +167,11 @@ export default {
   position: relative;
   overflow: hidden;
 }
+
 .avatar-uploader .el-upload:hover {
   border-color: #409eff;
 }
+
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
@@ -162,6 +180,7 @@ export default {
   line-height: 178px;
   text-align: center;
 }
+
 .avatar {
   width: 178px;
   height: 178px;

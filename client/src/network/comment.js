@@ -1,10 +1,10 @@
 import http from './http';
 
 // 获取评论
-export function fetchComment(id) {
+export function fetchComments(id) {
   return http({
     url: `/comments/${id}`,
-    method: "get"
+    method: 'get'
   })
 }
 

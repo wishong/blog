@@ -12,25 +12,28 @@
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" sortable></el-table-column>
       <el-table-column prop="updateTime" label="上次修改时间" sortable></el-table-column>
-      <el-table-column fixed="right" label="操作">
+      <el-table-column fixed="right" label="操作" width="260px">
         <template v-slot="scope">
           <el-button type="primary" icon="el-icon-edit" size="small" @click="edit(scope.row)">编辑</el-button>
+          <el-button type="primary" icon="el-icon-s-comment" size="small" @click="com(scope.row)">评论</el-button>
           <el-button type="primary" icon="el-icon-delete" size="small" @click="remove(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      background
-      layout="prev, pager, next"
+    <pagination
+      class="pagination"
       :total="items.total"
       :page-size="items.pageSize"
-      @current-change="currentChange"
+      @currentChange="currentChange"
       :current-page="items.currentPage"
-    ></el-pagination>
+    />
   </div>
 </template>
 
 <script>
+import Pagination from "@/components/pagination/Pagination";
+import { fetchArticles, deleteArticle } from "@/network/article";
+
 export default {
   name: "Articles",
   data() {
@@ -45,42 +48,36 @@ export default {
   },
   created() {
     this.fetch();
-    this.getList();
   },
   methods: {
-    async fetch() {
-      const res = await this.$http.get("/articles");
-      this.items.total = res.data;
-    },
-    async getList() {
-      const res = await this.$http.post("/articles/getList", {
-        pageSize: this.items.pageSize,
-        currentPage: this.items.currentPage
+    fetch() {
+      fetchArticles(this.items.pageSize, this.items.currentPage).then(res => {
+        this.items.total = res.data.total;
+        this.items.articles = res.data.items;
       });
-      this.items.articles = res.data;
     },
     currentChange(page) {
       this.items.currentPage = page;
-      this.getList();
+      this.fetch();
     },
     edit(row) {
       this.$router.push(`/articles/edit/${row._id}`);
     },
-    async remove(row) {
+    remove(row) {
       this.$confirm(`是否要删除 "${row.title}" 文章?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
-        .then(async () => {
-          await this.$http.delete(`/articles/delete/${row._id}`);
-          this.items.currentPage = 1;
-          this.getList();
-          this.fetch();
-          this.$message({
-            type: "success",
-            message: "删除成功!",
-            duration: 1000
+        .then(() => {
+          deleteArticle(row._id).then(res => {
+            this.items.currentPage = 1;
+            this.fetch();
+            this.$message({
+              type: "success",
+              message: "删除成功!",
+              duration: 1000
+            });
           });
         })
         .catch(() => {
@@ -90,16 +87,21 @@ export default {
             duration: 1000
           });
         });
+    },
+    com(row) {
+      this.$router.push(`/articles/comments/${row._id}`);
     }
+  },
+  components: {
+    Pagination
   }
 };
 </script>
 
 <style scoped>
-.el-pagination {
+.pagination {
   position: fixed;
-  bottom: 5%;
+  bottom: 3%;
   left: 50%;
-  transform: translateX(-50%);
 }
 </style>

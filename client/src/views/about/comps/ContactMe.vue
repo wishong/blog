@@ -14,7 +14,7 @@
             @mouseover="isHover(i)"
             @mouseleave="currentIndex = -1"
           >
-            <a v-if="item.href" :href="item.href"></a>
+            <a v-if="item.href" :href="item.href" target="_blank"></a>
             <div :class="{border:true,isShow:currentIndex === i}">
               <img v-if="item.img" :src="item.img" />
               <p v-else>{{ item.des }}</p>

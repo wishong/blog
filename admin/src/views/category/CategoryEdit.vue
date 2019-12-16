@@ -13,6 +13,12 @@
 </template>
 
 <script>
+import {
+  fetchCategory,
+  postCategory,
+  editCategory
+} from "../../network/category";
+
 export default {
   name: "CategoryEdit",
   data() {
@@ -29,28 +35,32 @@ export default {
     this.id && this.fetch();
   },
   methods: {
-    async save() {
+    save() {
       let res;
       if (this.id) {
-        res = await this.$http.put(`/categories/${this.id}`, this.category);
-        this.$message({
-          type: "success",
-          message: "保存成功",
-          duration: 1000
+        editCategory(this.id, this.category).then(res => {
+          this.$router.push("/categories");
+          this.$message({
+            type: "success",
+            message: "保存成功",
+            duration: 1000
+          });
         });
       } else {
-        res = await this.$http.post("/categories", this.category);
-        this.$message({
-          type: "success",
-          message: "创建成功",
-          duration: 1000
+        postCategory(this.category).then(res => {
+          this.$router.push("/categories");
+          this.$message({
+            type: "success",
+            message: "创建成功",
+            duration: 1000
+          });
         });
       }
-      this.$router.push("/categories");
     },
-    async fetch() {
-      const res = await this.$http.get(`/categories/${this.id}`);
-      this.category = res.data;
+    fetch() {
+      fetchCategory(this.id).then(res => {
+        this.category = res.data;
+      });
     }
   },
   computed: {

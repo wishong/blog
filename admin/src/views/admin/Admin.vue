@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { fetchAdmins, deleteAdmins } from "../../network/admin";
+import { fetchAdmins, deleteAdmins } from "@/network/admin";
 
 export default {
   name: "Admin",
@@ -34,7 +34,7 @@ export default {
     },
     remove(row) {
       if (row.username === "admin") {
-        this.$message.error("此用户无法删除");
+        return this.$message.error("此用户无法删除");
       }
       this.$confirm(`是否要删除 "${row.username}" 管理员?`, "提示", {
         confirmButtonText: "确定",
