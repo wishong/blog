@@ -1,9 +1,8 @@
 .DS_Store
 node_modules
 /dist
-/server
-/client/network
-/admin/network
+server
+network
 
 # local env files
 .env.local
