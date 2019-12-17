@@ -3,6 +3,7 @@ node_modules
 /dist
 /server
 /client/network
+/admin/network
 
 # local env files
 .env.local
