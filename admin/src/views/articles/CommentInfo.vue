@@ -1,5 +1,6 @@
 <template>
   <div>
+    <pageHeader url="/articles" />
     <h3>评论列表</h3>
     <el-table :data="items.comments">
       <el-table-column prop="commenter" label="评论人"></el-table-column>
@@ -25,6 +26,7 @@
 <script>
 import { fetchComments, deleteComment } from "@/network/article";
 import Pagination from "@/components/pagination/Pagination";
+import PageHeader from "@/components/pageHeader/PageHeader";
 
 export default {
   name: "CommentInfo",
@@ -82,7 +84,8 @@ export default {
     }
   },
   components: {
-    Pagination
+    Pagination,
+    PageHeader
   }
 };
 </script>

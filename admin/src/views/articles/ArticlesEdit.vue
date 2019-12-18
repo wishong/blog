@@ -1,5 +1,6 @@
 <template>
   <div>
+    <pageHeader v-if="this.id" url="/articles" />
     <h3>{{ title }}</h3>
     <el-form label-width="120px" @submit.native.prevent="save">
       <el-tabs type="card">
@@ -51,9 +52,14 @@ import {
   postArticle,
   editArticle
 } from "@/network/article";
+import PageHeader from "@/components/pageHeader/PageHeader";
 
 export default {
   name: "ArticlesEdit",
+  created() {
+    this.categories();
+    this.id && this.fetch();
+  },
   data() {
     return {
       article: {},
@@ -66,10 +72,6 @@ export default {
   },
   props: {
     id: {}
-  },
-  created() {
-    this.categories();
-    this.id && this.fetch();
   },
   methods: {
     categories() {
@@ -151,6 +153,9 @@ export default {
       const day = padDate(value.getDate());
       return `${year}${month}${day}`;
     }
+  },
+  components: {
+    PageHeader
   }
 };
 </script>

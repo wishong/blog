@@ -4,7 +4,7 @@
     <el-aside width="auto" style="background-color: rgb(238, 241, 246)">
       <el-menu router :default-active="$route.path" :collapse="isCollapse" class="menu">
         <button @click="isCollapse = ! isCollapse" class="el-icon-arrow-right" v-show="isCollapse"></button>
-        <button @click="isCollapse = ! isCollapse" class="el-icon-arrow-left" v-show="!isCollapse"></button>
+        <button @click="isCollapse = ! isCollapse" class="el-icon-arrow-left" v-show="!isCollapse">收起</button>
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-user"></i>
@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       username: "",
-      isCollapse: true
+      isCollapse: false
     };
   },
   methods: {
@@ -109,7 +109,6 @@ export default {
 
 .menu:not(.el-menu--collapse) {
   width: 200px;
-  min-height: 400px;
 }
 
 .el-aside .el-icon-arrow-right,
@@ -122,6 +121,6 @@ export default {
   outline: none;
   font-weight: bold;
   font-size: 16px;
-  color: #409eff;
+  color: #888;
 }
 </style>

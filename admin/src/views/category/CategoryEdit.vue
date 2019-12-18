@@ -1,5 +1,6 @@
 <template>
   <div>
+    <pageHeader url="/categories" v-if="this.id" />
     <h3>{{title}}</h3>
     <el-form label-width="120px" @submit.native.prevent="save" :model="category">
       <el-form-item label="分类名称" prop="name">
@@ -18,9 +19,13 @@ import {
   postCategory,
   editCategory
 } from "../../network/category";
+import pageHeader from "@/components/pageHeader/PageHeader";
 
 export default {
   name: "CategoryEdit",
+  created() {
+    this.id && this.fetch();
+  },
   data() {
     return {
       category: {
@@ -30,9 +35,6 @@ export default {
   },
   props: {
     id: {}
-  },
-  created() {
-    this.id && this.fetch();
   },
   methods: {
     save() {
@@ -67,6 +69,9 @@ export default {
     title() {
       return this.id ? "编辑分类" : "新建分类";
     }
+  },
+  components: {
+    pageHeader
   }
 };
 </script>
