@@ -11,6 +11,7 @@ const CategoryEdit = () => import('@/views/category/CategoryEdit.vue');
 const Articles = () => import('@/views/articles/Articles.vue');
 const ArticlesEdit = () => import('@/views/articles/ArticlesEdit.vue');
 const CommentInfo = () => import('@/views/articles/CommentInfo.vue');
+const ReplyComment = () => import('@/views/articles/ReplyComment.vue')
 
 Vue.use(VueRouter)
 
@@ -30,7 +31,8 @@ const routes = [
       { path: 'articles', component: Articles },
       { path: 'articles/create', component: ArticlesEdit },
       { path: 'articles/edit/:id', component: ArticlesEdit, props: true },
-      { path: 'articles/comments/:id', component: CommentInfo }
+      { path: 'articles/comments/:id', component: CommentInfo },
+      { path: 'articles/reply/:id', component: ReplyComment }
     ]
   },
   { path: "*", redirect: "/admin" }

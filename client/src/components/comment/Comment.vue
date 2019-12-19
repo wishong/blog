@@ -15,13 +15,16 @@
         <div class="commentItem">
           <div class="top">
             <span :title="'评论人:'+item.commenter">
-              <span class="el-icon-user"></span>
-              {{ item.commenter }}
+              <span class="el-icon-user">&nbsp;{{ item.commenter }}</span>
             </span>
             <span>第{{ list.length - i}}楼</span>
           </div>
           <p class="bottom">{{ item.comment }}</p>
           <p class="time">{{ item.commentTime }}</p>
+          <div class="reply" v-if="item.reply !== ''">
+            <span class="el-icon-user-solid">&nbsp;博主回复：</span>
+            <span>{{ item.reply }}</span>
+          </div>
         </div>
       </li>
     </ul>
@@ -163,6 +166,18 @@ export default {
   color: #888;
 }
 
+.comment-container .commentItem .reply {
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.comment-container .commentItem .reply span {
+  font-weight: bold;
+  color: #766dc5;
+  letter-spacing: 0;
+}
+
 button {
   align-self: flex-end;
   outline: none;
@@ -232,6 +247,12 @@ ul {
   }
 
   .comment-container .commentItem .time {
+    font-size: 14px;
+  }
+
+  .comment-container .commentItem .reply {
+    margin-top: 6px;
+    margin-left: 5px;
     font-size: 14px;
   }
 

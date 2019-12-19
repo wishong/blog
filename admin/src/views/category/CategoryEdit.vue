@@ -1,6 +1,6 @@
 <template>
   <div>
-    <pageHeader url="/categories" v-if="this.id" />
+    <pageHeader v-if="this.id" />
     <h3>{{title}}</h3>
     <el-form label-width="120px" @submit.native.prevent="save" :model="category">
       <el-form-item label="分类名称" prop="name">

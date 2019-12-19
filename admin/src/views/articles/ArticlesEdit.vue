@@ -1,6 +1,6 @@
 <template>
   <div>
-    <pageHeader v-if="this.id" url="/articles" />
+    <pageHeader v-if="this.id" />
     <h3>{{ title }}</h3>
     <el-form label-width="120px" @submit.native.prevent="save">
       <el-tabs type="card">

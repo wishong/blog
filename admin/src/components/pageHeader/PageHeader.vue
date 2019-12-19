@@ -7,12 +7,9 @@
 <script>
 export default {
   name: "PageHeader",
-  props: {
-    url: { type: String }
-  },
   methods: {
     back() {
-      this.$router.push(this.url);
+      this.$router.back();
     }
   }
 };
