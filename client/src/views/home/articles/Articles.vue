@@ -3,7 +3,6 @@
     <articles-item :articlesList="articlesList" />
     <pagination
       class="pagination"
-      :hide-on-single-page="true"
       :total="articlesList.total"
       :page-size="articlesList.pageSize"
       :current-page="articlesList.currentPage"
