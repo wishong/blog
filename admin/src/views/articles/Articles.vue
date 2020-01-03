@@ -3,11 +3,20 @@
     <h3>文章列表</h3>
     <el-table :data="items.articles">
       <el-table-column prop="_id" label="ID"></el-table-column>
-      <el-table-column prop="categoryId.name" label="文章分类"></el-table-column>
+      <el-table-column
+        prop="categoryId.name"
+        label="文章分类"
+        :filters="filters"
+        :filter-method="filterTag"
+      ></el-table-column>
       <el-table-column prop="title" label="文章标题"></el-table-column>
       <el-table-column prop="icon" label="文章封面">
         <template v-slot="scope">
-          <img :src="scope.row.coverImg" style="height:5rem;width:5rem" />
+          <el-image :src="scope.row.coverImg">
+            <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline"></i>
+            </div>
+          </el-image>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" sortable></el-table-column>
@@ -36,6 +45,9 @@ import { fetchArticles, deleteArticle } from "@/network/article";
 
 export default {
   name: "Articles",
+  created() {
+    this.fetch();
+  },
   data() {
     return {
       items: {
@@ -43,17 +55,26 @@ export default {
         total: 0,
         pageSize: 4,
         currentPage: 1
-      }
+      },
+      filters: []
     };
-  },
-  created() {
-    this.fetch();
   },
   methods: {
     fetch() {
       fetchArticles(this.items.pageSize, this.items.currentPage).then(res => {
         this.items.total = res.data.total;
         this.items.articles = res.data.items;
+        res.data.items.forEach(item => {
+          this.filters.push({
+            text: item.categoryId.name,
+            value: item.categoryId.name
+          });
+        });
+        const temp = {};
+        this.filters = this.filters.reduce((item, next) => {
+          temp[next.value] ? "" : (temp[next.value] = true && item.push(next));
+          return item;
+        }, []);
       });
     },
     currentChange(page) {
@@ -90,6 +111,9 @@ export default {
     },
     com(row) {
       this.$router.push(`/articles/comments/${row._id}`);
+    },
+    filterTag(value, row) {
+      return row.categoryId.name === value;
     }
   },
   components: {
@@ -103,5 +127,24 @@ export default {
   position: fixed;
   bottom: 3%;
   left: 50%;
+}
+
+.el-image {
+  height: 80px;
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f7fa;
+}
+
+.image-slot {
+  height: 80px;
+  width: 80px;
+}
+
+.image-slot i {
+  font-size: 35px;
+  color: #909399;
 }
 </style>

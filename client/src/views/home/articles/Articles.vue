@@ -74,6 +74,7 @@ export default {
   width: 75%;
   padding: 10px;
   position: relative;
+  transition: all 0.5s ease;
 }
 
 .pagination {
@@ -86,6 +87,7 @@ export default {
 @media screen and (max-width: 992px) {
   .articles-container {
     width: 100%;
+    transition: all 0.5s ease;
   }
 }
 

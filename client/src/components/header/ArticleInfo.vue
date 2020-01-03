@@ -1,13 +1,15 @@
 <template>
-  <div v-if="articleInfo._id">
-    <div class="describe">{{ articleInfo.describe }}</div>
-    <div class="info">
-      <div>CREATE:{{ articleInfo.createTime }}</div>
-      <div>UPDATE:{{ articleInfo.updateTime }}</div>
-      <div class="gategory">
-        <router-link
-          :to="'/categories/'+articleInfo.categoryId.name"
-        >#{{ articleInfo.categoryId.name }}</router-link>
+  <div>
+    <div v-if="articleInfo._id">
+      <div class="describe">{{ articleInfo.describe }}</div>
+      <div class="info">
+        <div>CREATE:{{ articleInfo.createTime }}</div>
+        <div>UPDATE:{{ articleInfo.updateTime }}</div>
+        <div class="gategory">
+          <router-link
+            :to="'/categories/'+articleInfo.categoryId.name"
+          >#{{ articleInfo.categoryId.name }}</router-link>
+        </div>
       </div>
     </div>
   </div>

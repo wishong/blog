@@ -47,7 +47,7 @@ export default {
     fetch(data) {
       if (data === "") {
         this.init = false;
-        this.$toast("不能为空");
+        return this.$toast("不能为空");
       }
       fetchSearch(this.data).then(res => {
         this.init = true;

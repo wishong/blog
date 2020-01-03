@@ -58,13 +58,10 @@ export default {
   },
   filters: {
     time(val) {
-      const add = value => {
-        return value >= 10 ? value : "0" + value;
-      };
       const filter = val.split(" ")[0];
-      const year = add(filter.split("-")[0].slice(2));
-      const month = add(filter.split("-")[1]);
-      const day = add(filter.split("-")[2]);
+      const year = filter.split("-")[0].slice(2);
+      const month = filter.split("-")[1];
+      const day = filter.split("-")[2];
       return `${year}/${month}/${day}`;
     }
   }
@@ -97,6 +94,7 @@ export default {
   position: relative;
   width: 60%;
   height: 430px;
+  transition: all 0.5s ease;
 }
 
 .articles-item-container .coverImg .back,
@@ -231,6 +229,7 @@ button:hover {
   .articles-item-container .coverImg {
     width: 80%;
     height: 500px;
+    transition: all 0.5s ease;
   }
 
   .articles-item-container .describe {
@@ -250,6 +249,7 @@ button:hover {
   .articles-item-container .coverImg {
     width: 100%;
     height: 230px;
+    transition: all 0.5s ease;
   }
 
   .articles-item-container .describe {

@@ -19,32 +19,15 @@
 </template>
 
 <script>
-import { fetchArchives } from "@/network/archive";
-
 export default {
   name: "ArchivesItem",
-  created() {
-    this.fetch();
-  },
-  data() {
-    return {
-      archives: {}
-    };
-  },
-  methods: {
-    fetch() {
-      fetchArchives().then(res => {
-        this.archives = res.data;
-      });
-    }
+  props: {
+    archives: Array
   },
   filters: {
     createTime(val) {
-      const add = value => {
-        return value >= 10 ? value : "0" + value;
-      };
-      const month = add(val.split(" ")[0].split("-")[1]);
-      const day = add(val.split(" ")[0].split("-")[2]);
+      const month = val.split(" ")[0].split("-")[1];
+      const day = val.split(" ")[0].split("-")[2];
       return `${month}-${day}`;
     }
   }
@@ -53,13 +36,13 @@ export default {
 
 <style scoped>
 .archives {
-  padding-top: 20px;
-  margin: 20px;
+  padding-top: 10px;
+  margin: 0 20px;
   margin-right: 25vw;
 }
 
 .archives .archives-item {
-  margin: 30px 15px;
+  margin: 25px 16px;
   position: relative;
 }
 
@@ -118,6 +101,10 @@ a {
 }
 
 @media screen and (max-width: 768px) {
+  .archives .archives-item {
+    margin: 20px 16px;
+  }
+
   .archives .archives-item span:first-child {
     font-size: 15px;
   }

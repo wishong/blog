@@ -80,6 +80,15 @@ export default {
       });
     },
     save() {
+      if (this.article.categoryId === undefined) {
+        return this.$message.error("请选择分类");
+      }
+      if (this.article.title === undefined) {
+        return this.$message.error("请填写标题");
+      }
+      if (this.article.describe === undefined) {
+        return this.$message.error("请填写描述");
+      }
       if (this.id) {
         editArticle(this.id, this.article).then(res => {
           this.$router.push("/articles");
