@@ -16,12 +16,14 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "ArticleInfo",
   computed: {
-    articleInfo() {
-      return this.$store.state.articleInfo;
-    }
+    ...mapState({
+      articleInfo: state => state.articleInfo
+    })
   }
 };
 </script>

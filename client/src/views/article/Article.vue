@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import { fetchInfo } from "@/network/article";
 import ArticleHeader from "./comps/ArticleHeader";
 import ArticleFooter from "./comps/ArticleFooter";
@@ -29,7 +30,7 @@ export default {
     this.fetch();
   },
   beforeDestroy() {
-    this.$store.commit("clearArticleInfo");
+    this.clear();
   },
   data() {
     return {
@@ -49,9 +50,13 @@ export default {
         this.articleInfo = res.data.item;
         this.prev = res.data.prev[0] || {};
         this.next = res.data.next[0] || {};
-        this.$store.commit("getArticleInfo", res.data.item);
+        this.get(res.data.item);
       });
-    }
+    },
+    ...mapMutations({
+      get: "GET_ARTICLEINFO",
+      clear: "CLEAR_ARTICLEINFO"
+    })
   },
   computed: {
     prop() {
