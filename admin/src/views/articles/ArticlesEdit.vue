@@ -66,7 +66,7 @@ export default {
       parentCategories: [],
       loading: {},
       domain: "https://upload-z2.qiniup.com",
-      qiniuaddr: "q3h41b7ds.bkt.clouddn.com",
+      qiniuaddr: "q8h0smpha.bkt.clouddn.com",
       imageUrl: ""
     };
   },

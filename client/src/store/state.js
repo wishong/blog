@@ -1,4 +1,4 @@
-const states = {
+const state = {
   articleInfo: {
     categoryId: {
       name: ""
@@ -6,4 +6,4 @@ const states = {
   }
 }
 
-export default states;
+export default state;
