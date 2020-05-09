@@ -4,16 +4,10 @@
       <h2 slot="title">联系我</h2>
       <div slot="content" class="contact-me">
         <p>三人行必有我师。</p>
-      </div>
-      <div slot="icon">
+
         <ul>
-          <li
-            v-for="(item,i) in icons"
-            :key="item.icon"
-            :class="[item.icon,'iconfont']"
-            @mouseover="isHover(i)"
-            @mouseleave="currentIndex = -1"
-          >
+          <li v-for="(item,i) in icons" :key="item.icon" :class="[item.icon,'iconfont']" @mouseover="isHover(i)"
+              @mouseleave="currentIndex = -1">
             <a v-if="item.href" :href="item.href" target="_blank"></a>
             <div :class="{border:true,isShow:currentIndex === i}">
               <img v-if="item.img" :src="item.img" />
@@ -21,6 +15,7 @@
             </div>
           </li>
         </ul>
+
       </div>
     </sub-copm>
   </div>
@@ -31,7 +26,7 @@ import SubCopm from "./SubCopm";
 
 export default {
   name: "ContactMe",
-  data() {
+  data () {
     return {
       icons: [
         { icon: "icon-icon", img: require("@/assets/img/qq.jpg") },
@@ -46,7 +41,7 @@ export default {
     };
   },
   methods: {
-    isHover(i) {
+    isHover (i) {
       this.currentIndex = i;
     }
   },
@@ -108,7 +103,7 @@ export default {
 }
 
 .border::after {
-  content: "";
+  content: '';
   position: absolute;
   top: -16px;
   left: 50%;
@@ -123,7 +118,7 @@ export default {
 ul {
   list-style: none;
   display: flex;
-  margin: 0 27px;
+  margin: 0 15px;
 }
 
 a {

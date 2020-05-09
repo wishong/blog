@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const adminModel = require('../../models/admin');
 const assert = require('http-assert');
+const bcrypt = require('bcryptjs');
 
 // 获取
 router.get('/', async (req, res) => {
@@ -36,9 +37,9 @@ router.put('/changePwd/:username', async (req, res) => {
   const { oldpwd, password } = req.body;
   const { username } = req.params;
   const item = await adminModel.findOne({ username });
-  const isValid = require('bcryptjs').compareSync(oldpwd, item.password);
+  const isValid = bcrypt.compareSync(oldpwd, item.password);
   assert(isValid, 422, '旧密码错误');
-  const isRepeat = require('bcryptjs').compareSync(password, item.password);
+  const isRepeat = bcrypt.compareSync(password, item.password);
   assert(!isRepeat, 422, '新旧密码一样');
   const result = await adminModel.updateOne({ username }, { password });
   res.send(result);

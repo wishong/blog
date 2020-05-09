@@ -14,10 +14,10 @@ import BackTop from "@/components/backTop/BackTop";
 
 export default {
   name: "Categories",
-  created() {
+  created () {
     this.fetch();
   },
-  data() {
+  data () {
     return {
       articlesList: {
         total: 0,
@@ -28,7 +28,7 @@ export default {
     };
   },
   methods: {
-    fetch() {
+    fetch () {
       fetchArticles(
         this.articlesList.pageSize,
         this.articlesList.currentPage
@@ -37,7 +37,7 @@ export default {
         this.articlesList.items = res.data.items;
       });
     },
-    currentChange(page) {
+    currentChange (page) {
       this.articlesList.currentPage = page;
       this.fetch();
     }

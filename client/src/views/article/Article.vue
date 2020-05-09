@@ -1,6 +1,7 @@
 <template>
   <div class="article-container">
     <article-header :articleInfo="articleInfo" />
+    
     <mavon-editor
       :value="articleInfo.content"
       :subfield="prop.subfield"
@@ -9,10 +10,14 @@
       :editable="prop.editable"
       :scrollStyle="prop.scrollStyle"
       :codeStyle="prop.codeStyle"
-    ></mavon-editor>
+    />
+
     <article-footer :prev="prev" :next="next" />
+
     <back-top />
+
     <comment :id="$route.params.id" />
+
   </div>
 </template>
 

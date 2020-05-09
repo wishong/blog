@@ -3,7 +3,7 @@
     <detail-top>
       <span slot="title" class="title">{{ name }}</span>
     </detail-top>
-    <detail-bottom :articlesList="articlesList" @currentChange="currentChange"></detail-bottom>
+    <detail-bottom :articlesList="articlesList" @currentChange="currentChange" />
   </div>
 </template>
 
@@ -14,10 +14,10 @@ import DetailBottom from "../comps/Bottom";
 
 export default {
   name: "Detail",
-  created() {
+  created () {
     this.fetch();
   },
-  data() {
+  data () {
     return {
       articlesList: {
         total: 0,
@@ -28,7 +28,7 @@ export default {
     };
   },
   methods: {
-    fetch() {
+    fetch () {
       fetchCategoryArticles(
         this.$route.params.name,
         this.articlesList.pageSize,
@@ -38,13 +38,13 @@ export default {
         this.articlesList.items = res.data.list;
       });
     },
-    currentChange(page) {
+    currentChange (page) {
       this.articlesList.currentPage = page;
       this.fetch();
     }
   },
   computed: {
-    name() {
+    name () {
       return this.$route.params.name;
     }
   },

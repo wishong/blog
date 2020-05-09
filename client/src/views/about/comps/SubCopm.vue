@@ -1,12 +1,14 @@
 <template>
   <div class="sub-container">
+
     <div class="title">
-      <slot name="title"></slot>
+      <slot name="title" />
     </div>
+
     <div class="content">
-      <slot name="content"></slot>
+      <slot name="content" />
     </div>
-    <slot name="icon"></slot>
+
   </div>
 </template>
 
@@ -29,7 +31,7 @@ export default {
 }
 
 .title::before {
-  content: "";
+  content: '';
   position: absolute;
   height: 100%;
   width: 3px;

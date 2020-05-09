@@ -53,8 +53,10 @@ export default {
         document.body.scrollTop;
       let scroll = scrollTop - this.scrollFlag;
       this.scrollFlag = scrollTop;
+      // 判断是否隐藏导航栏
       this.isHide = scroll > 0 ? true : false;
       const height = this.$refs.container.offsetHeight;
+      // 判断是否完全显示导航栏，处于顶部封面时为半透明
       this.isComplete = height - scrollTop > 0 ? false : true;
     },
     showMobileList(list) {

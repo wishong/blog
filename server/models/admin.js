@@ -1,10 +1,11 @@
 const mongoose = require('../db/index');
+const bcrypt = require('bcryptjs');
 
 const adminSchema = new mongoose.Schema({
   username: { type: String, unique: true },
   password: {
     type: String, set(val) {
-      return require('bcryptjs').hashSync(val, 10);
+      return bcrypt.hashSync(val, 10);
     }
   }
 })

@@ -1,5 +1,6 @@
 <template>
   <div class="search-container">
+
     <div class="search-bar">
       <input
         type="text"
@@ -10,7 +11,9 @@
       />
       <span class="el-icon-search" @click="fetch(data)"></span>
     </div>
+    
     <hr />
+    
     <div class="search-result" v-show="init">
       <pre v-show="list.length !== 0"><p>包含<span>"{{ oldData }}"</span>的文章：</p></pre>
       <pre v-show="list.length === 0"><p>没有搜索到包含<span>"{{ oldData }}"</span>的文章</p></pre>
@@ -25,7 +28,9 @@
         </li>
       </ol>
     </div>
+
     <back-top />
+
   </div>
 </template>
 

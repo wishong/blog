@@ -16,6 +16,6 @@ const articleSchema = new mongoose.Schema({
 
 articleSchema.set('toJSON', { getters: true });
 
-const articlies = mongoose.model('articles', articleSchema);
+const articleModel = mongoose.model('articles', articleSchema);
 
-module.exports = articlies;
+module.exports = articleModel;
